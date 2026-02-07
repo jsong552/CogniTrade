@@ -1,4 +1,4 @@
-import { Trade } from '@/lib/mockData';
+import type { Trade } from '@/lib/mockData';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { motion } from 'framer-motion';
