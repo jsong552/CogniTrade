@@ -3,7 +3,8 @@ import { AppLayout } from '@/components/AppLayout';
 import { StockChart } from '@/components/StockChart';
 import { TickerList } from '@/components/TickerList';
 import { TradePanel } from '@/components/TradePanel';
-import { TICKERS, StockTicker } from '@/lib/mockData';
+import { TICKERS } from '@/lib/mockData';
+import type { StockTicker } from '@/lib/mockData';
 import { useTradingStore } from '@/lib/tradingStore';
 
 const TradePage = () => {
@@ -29,7 +30,6 @@ const TradePage = () => {
               symbol={selectedTicker.symbol}
               basePrice={selectedTicker.price}
               change={selectedTicker.change}
-              changePercent={selectedTicker.changePercent}
             />
           </div>
         </div>

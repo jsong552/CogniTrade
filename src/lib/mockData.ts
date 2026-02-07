@@ -1,4 +1,6 @@
 // Mock stock data
+import { buildTickersFromTransactions } from './transactionData';
+
 export interface StockTicker {
   symbol: string;
   name: string;
@@ -47,20 +49,9 @@ export interface BehaviorAnalysis {
   score: number;
 }
 
-export const TICKERS: StockTicker[] = [
-  { symbol: 'AAPL', name: 'Apple Inc.', price: 189.84, change: 2.34, changePercent: 1.25, sector: 'Technology' },
-  { symbol: 'MSFT', name: 'Microsoft Corp.', price: 378.91, change: -1.23, changePercent: -0.32, sector: 'Technology' },
-  { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 141.80, change: 0.95, changePercent: 0.67, sector: 'Technology' },
-  { symbol: 'AMZN', name: 'Amazon.com Inc.', price: 186.13, change: 3.21, changePercent: 1.75, sector: 'Consumer' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', price: 248.42, change: -5.67, changePercent: -2.23, sector: 'Automotive' },
-  { symbol: 'NVDA', name: 'NVIDIA Corp.', price: 875.28, change: 12.45, changePercent: 1.44, sector: 'Technology' },
-  { symbol: 'SPY', name: 'S&P 500 ETF', price: 502.34, change: 1.89, changePercent: 0.38, sector: 'ETF' },
-  { symbol: 'QQQ', name: 'Nasdaq 100 ETF', price: 438.12, change: 2.56, changePercent: 0.59, sector: 'ETF' },
-  { symbol: 'VOO', name: 'Vanguard S&P 500', price: 461.78, change: 1.72, changePercent: 0.37, sector: 'ETF' },
-  { symbol: 'META', name: 'Meta Platforms', price: 484.22, change: 6.78, changePercent: 1.42, sector: 'Technology' },
-];
+export const TICKERS: StockTicker[] = buildTickersFromTransactions();
 
-export type TimeRange = '1H' | '1D' | '1W' | '1M' | '1Y';
+export type TimeRange = '1D' | '1W' | '1M' | '1Y';
 
 export function generatePriceData(basePrice: number, range: TimeRange): PricePoint[] {
   const points: PricePoint[] = [];
@@ -68,7 +59,6 @@ export function generatePriceData(basePrice: number, range: TimeRange): PricePoi
   let volatility: number;
 
   switch (range) {
-    case '1H': numPoints = 60; volatility = 0.001; break;
     case '1D': numPoints = 78; volatility = 0.003; break;
     case '1W': numPoints = 35; volatility = 0.008; break;
     case '1M': numPoints = 30; volatility = 0.015; break;
@@ -84,9 +74,6 @@ export function generatePriceData(basePrice: number, range: TimeRange): PricePoi
 
     let time: Date;
     switch (range) {
-      case '1H':
-        time = new Date(now.getTime() - (numPoints - i) * 60 * 1000);
-        break;
       case '1D':
         time = new Date(now.getTime() - (numPoints - i) * 5 * 60 * 1000);
         break;
@@ -103,7 +90,6 @@ export function generatePriceData(basePrice: number, range: TimeRange): PricePoi
 
     const formatTime = () => {
       switch (range) {
-        case '1H': return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         case '1D': return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         case '1W': return time.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
         case '1M': return time.toLocaleDateString([], { month: 'short', day: 'numeric' });

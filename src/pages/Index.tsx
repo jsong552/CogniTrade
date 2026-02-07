@@ -30,7 +30,6 @@ const Index = () => {
               symbol={selectedTicker.symbol}
               basePrice={selectedTicker.price}
               change={selectedTicker.change}
-              changePercent={selectedTicker.changePercent}
             />
           </div>
         </div>
