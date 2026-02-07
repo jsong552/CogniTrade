@@ -3,7 +3,7 @@ import { AppLayout } from '@/components/AppLayout';
 import { AlpacaMarketChart } from '@/components/AlpacaMarketChart';
 import { useTradingStore } from '@/lib/tradingStore';
 import { motion } from 'framer-motion';
-import { Search, Zap, Globe, Plus, Check } from 'lucide-react';
+import { Plus, Check } from 'lucide-react';
 import { toast } from 'sonner';
 
 const SearchPage = () => {
@@ -28,68 +28,24 @@ const SearchPage = () => {
         <AppLayout>
             <div className="space-y-6">
                 {/* Page Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex items-center justify-between"
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl border border-primary/20">
-                            <Search className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                            <h1 className="text-xl font-bold tracking-tight">Search Stocks</h1>
-                            <p className="text-sm text-muted-foreground">Real-time stock prices from Alpaca Markets</p>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Feature Cards */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-4"
-                >
-                    <div className="glass-card p-4 flex items-center gap-3">
-                        <div className="p-2 bg-blue-500/10 rounded-lg">
-                            <Globe className="h-4 w-4 text-blue-400" />
-                        </div>
-                        <div>
-                            <span className="text-sm font-medium">US Markets</span>
-                            <p className="text-xs text-muted-foreground">NYSE & NASDAQ</p>
-                        </div>
-                    </div>
-                    <div className="glass-card p-4 flex items-center gap-3">
-                        <div className="p-2 bg-amber-500/10 rounded-lg">
-                            <Zap className="h-4 w-4 text-amber-400" />
-                        </div>
-                        <div>
-                            <span className="text-sm font-medium">Live Data</span>
-                            <p className="text-xs text-muted-foreground">Updates every 5 seconds</p>
-                        </div>
-                    </div>
-                    <div className="glass-card p-4 flex items-center gap-3">
-                        <div className="p-2 bg-emerald-500/10 rounded-lg">
-                            <Search className="h-4 w-4 text-emerald-400" />
-                        </div>
-                        <div>
-                            <span className="text-sm font-medium">Watchlist: {watchlist.length}</span>
-                            <p className="text-xs text-muted-foreground">Stocks tracked</p>
-                        </div>
-                    </div>
-                </motion.div>
+                <h1 className="text-xl font-bold mb-6">Search Stocks</h1>
 
                 {/* Main Chart Card */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.2 }}
+                    transition={{ duration: 0.3 }}
                     className="glass-card p-6"
                 >
-                    {/* Add to Watchlist Button */}
-                    <div className="flex items-center justify-between mb-4">
+                    {/* Search Bar - Now at the top */}
+                    <AlpacaMarketChart
+                        symbol={currentSymbol}
+                        onSymbolChange={handleSymbolChange}
+                        showSymbolInput={true}
+                    />
+
+                    {/* Ticker Name and Add to Watchlist Button - Now below search */}
+                    <div className="flex items-center justify-between mt-6 pt-6 border-t border-border/50">
                         <div className="flex items-center gap-2">
                             <span className="text-lg font-bold">{currentSymbol}</span>
                         </div>
@@ -97,8 +53,8 @@ const SearchPage = () => {
                             onClick={handleAddToWatchlist}
                             disabled={inWatchlist}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${inWatchlist
-                                    ? 'bg-gain/10 text-gain cursor-default'
-                                    : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                                ? 'bg-gain/10 text-gain cursor-default'
+                                : 'bg-primary text-primary-foreground hover:bg-primary/90'
                                 }`}
                         >
                             {inWatchlist ? (
@@ -114,11 +70,6 @@ const SearchPage = () => {
                             )}
                         </button>
                     </div>
-
-                    <AlpacaMarketChart
-                        symbol={currentSymbol}
-                        onSymbolChange={handleSymbolChange}
-                    />
                 </motion.div>
 
                 {/* Info Section */}

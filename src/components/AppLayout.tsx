@@ -23,10 +23,12 @@ export function AppLayout({ children }: AppLayoutProps) {
       {/* Sidebar */}
       <aside className="w-16 md:w-56 flex-shrink-0 border-r border-border bg-card/50 flex flex-col">
         <div className="p-4 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Activity className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="hidden md:block text-sm font-bold tracking-tight">PaperTrader</span>
+          <img
+            src="/cognitrade_logo2.png"
+            alt="CogniTrade Logo"
+            className="w-8 h-8 rounded-lg object-contain"
+          />
+          <span className="hidden md:block text-sm font-bold tracking-tight">CogniTrade</span>
         </div>
 
         <nav className="flex-1 px-2 py-4 space-y-1">
