@@ -37,6 +37,7 @@ interface AlpacaMarketChartProps {
 const ALPACA_API_KEY = import.meta.env.VITE_ALPACA_API_KEY || '';
 const ALPACA_SECRET_KEY = import.meta.env.VITE_ALPACA_SECRET_KEY || '';
 const ALPACA_DATA_URL = 'https://data.alpaca.markets/v2';
+const TRADING_TIMEZONE = 'America/New_York';
 
 const TIME_RANGES: TimeRange[] = ['1D', '1W', '1M', '1Y', '5Y'];
 
@@ -49,7 +50,8 @@ function getTimeframeConfig(range: TimeRange): { timeframe: string; start: Date;
 
     switch (range) {
         case '1D':
-            start = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            // Pull a wider window so we can trim to the most recent trading day.
+            start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
             timeframe = '5Min';
             break;
         case '1W':
@@ -74,6 +76,15 @@ function getTimeframeConfig(range: TimeRange): { timeframe: string; start: Date;
     }
 
     return { timeframe, start, end };
+}
+
+function getTradingDateKey(date: Date): string {
+    return date.toLocaleDateString('en-US', {
+        timeZone: TRADING_TIMEZONE,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
 }
 
 // Format time based on range
@@ -175,6 +186,11 @@ export function AlpacaMarketChart({
                 setData([]);
                 setPriceStats(null);
             } else {
+                if (selectedRange === '1D') {
+                    const lastBarDateKey = getTradingDateKey(new Date(allBars[allBars.length - 1].t));
+                    allBars = allBars.filter(bar => getTradingDateKey(new Date(bar.t)) === lastBarDateKey);
+                }
+
                 // Transform the data for the chart
                 let minPrice = Infinity;
                 let maxPrice = -Infinity;
