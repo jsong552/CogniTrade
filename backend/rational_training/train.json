@@ -1,0 +1,404 @@
+{
+    "data": [
+        {
+            "text": "Okay so uh… I already took like five trades this morning and it's not even 10am. None of them were really there but I was just… bored, you know? I keep clicking in and out, spreads are killing me but I feel like if I stop I'm gonna miss something.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Man I was up like, what, 2R on that move and I just closed it. I couldn't watch it pull back even a little. Now it's ripping without me. I hate that I do this, I just wanted the green locked in.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "This is such BS. That stop was perfect and it still tagged me. Whatever, screw it, I'm going back in double size. Market owes me after that garbage wick.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone on Twitter is screaming this thing is gonna moon. Like literally everyone. I don't even see the setup but if I don't ape in now I'm gonna feel like an idiot watching it rip.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Okay so that's three losers in a row which means statistically the next one should hit, right? I mean it has to. I'm just gonna size up a bit and let probability do its thing.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Uh… price is kind of just chopping but I keep jumping in for these tiny scalps. I tell myself it's practice but honestly I just like being in a trade. Flat days make me itchy.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm still holding this red position. It's down way more than I planned but if I close it now it's real. Maybe it'll bounce back to VWAP, I just… I don't wanna take the loss.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "No no no, that's it, I'm pissed now. First trade rekt me, second one slipped, and now I'm slamming the buy button. I don't even care about the setup, I just need to make it back today.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Chat's going crazy about this breakout and I feel late already. I know chasing is bad but like, what if this is the one that runs all day and I'm sitting here doing nothing?",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've been trading for years, I know better than this, but after all these losses it just feels like a win is due. The system wouldn't screw me this many times in a row… right?",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I said I was done for the day but I keep seeing these little moves and I'm like, oh that's tradable, that's tradable too. Next thing I know I'm on trade number nine and my P/L is basically zero.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Uh… I had my finger on the buy button and then it started moving and I froze. Now it's already up two percent. I just didn't want to be wrong again.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "This market is straight up rigged. Took my stop to the tick and reversed. I'm not walking away like that. I'm loading back in heavier, no stop this time.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone in Discord is already green on this trade and I'm sitting here flat. I know it's extended but I can't just watch them print while I do nothing.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Four red trades… okay statistically that just doesn't make sense. The next one basically has to be a winner so I'm gonna push size a bit.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep telling myself I'm just managing risk but really I'm just clicking buttons. Even the commissions are stacking up. I'm trading just to feel active.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I moved my stop lower again. I know that's bad but if I get stopped here it'll ruin the whole week. I'll give it a little more room.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Nah I'm not calming down. That loss was personal. I'm going right back in on the same ticker. Bigger size. I don't care anymore.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This thing is all over Reddit right now. I don't even know what the company does but people are saying squeeze so… yeah I'm in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I mean eventually the odds have to flip. Losing this many times in a row just isn't normal. Next trade should balance it out.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Market's slow but I'm forcing scalps on the one-minute. Half-cent wins, half-cent losses, just nonstop clicking.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I sold way too early again. As soon as it went green I panicked and took it. Now it's doing exactly what I planned originally.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm so mad right now I can barely think. That trade wiped my morning and I'm just smashing hotkeys trying to get it back.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This breakout already happened but people are saying second leg. I don't wanna be the only one not in when it moons.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After six losers there's basically no way the seventh loses too. That's just math, right? I'm going all in on this setup.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I told myself max three trades today but I'm already at seven and the day just started. I keep finding reasons to enter.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm watching this winner pull back and my heart's racing. I know it could go higher but I just want out before it turns red.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That's it, I'm tilted. I don't care about rules right now. I need a win and I'm gonna force one.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone keeps posting screenshots of insane gains on this ticker. I feel stupid sitting cash while they get rich.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've lost so many in a row that a win is basically guaranteed now. The market owes me one.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm not even waiting for confirmations anymore. If price twitches I jump in. Sitting on my hands feels worse than losing.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I can't hit sell. If I sell now it's a loss on the journal and I just don't want to look at that later.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I slammed that trade out of pure anger. No plan, no stop, just vibes. I need to feel like I'm fighting back.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This is already so stretched but what if it keeps running all day? I'd hate myself if I missed it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's no way I stay unlucky forever. Probability has to even out, so this next trade is the one.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm flipping long to short to long again. Churn city. I don't even know what timeframe I'm trading anymore.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I moved my take profit closer because being up feels good and I don't want to risk giving that back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I feel personally attacked by this chart. I'm going right back in just to prove I'm right.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This ticker is trending everywhere and I feel late but not too late, right? I'm just gonna jump in now.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've paid my dues with losses. The next trade is basically destiny at this point.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Even during lunch I'm trading. No volume, bad fills, but I can't just sit here doing nothing.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I know my stop is supposed to be there but if I move it just a bit more maybe it'll survive.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That loss flipped a switch. I'm trading emotionally now and I know it but I can't stop.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "People are calling this the next big runner and I don't wanna be the only one who didn't buy.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After all these reds the math just says green is next. I'm trusting the streak logic.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm basically scalping noise at this point. Entry, exit, entry, exit, all dopamine no edge.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I cut the trade as soon as it went green even though my target was way higher. I just couldn't relax.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm yelling at my screen and re-entering like an idiot. This is pure revenge mode.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone says this dip is a gift. I don't see it but if they're right and I skip it I'll feel dumb.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's just no way I lose eight times in a row. I'm betting big on this next one.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I closed the platform and reopened it five minutes later because I felt like I might miss a setup.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "If I close this loser now it'll ruin my stats. I'll just wait a bit longer and see what happens.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I don't even care about the money right now. I just want to win this trade after that last loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This thing is already running but everyone says it's early. I don't wanna miss the real move.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The universe owes me a win after today. I'm putting faith in the next trade no matter what.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep refreshing the chart like something new is gonna magically appear. Every tiny candle looks like a setup if I stare long enough, so yeah… I'm in again.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I was green and I just dumped it immediately. Didn't even let it breathe. I just really didn't want to see it turn red on me.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That loss flipped my mood instantly. I slammed another trade right after, bigger size, zero patience. I just wanna punch back.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This thing is all over StockTwits and my phone won't stop buzzing. I feel like if I don't buy now I'm gonna miss the move of the week.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've had five red days straight so tomorrow pretty much has to be green. I'm planning to size up because the streak can't last forever.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I said no trading during chop but here I am clicking in and out, getting chopped to death, just because silence feels worse.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I hovered over the sell button forever and just couldn't do it. Taking the loss feels heavier than just holding and hoping.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I know I'm tilted but I'm still trading. That last loss felt disrespectful and I'm not ending the day like that.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone keeps saying this is an easy long and I'm sitting here second-guessing. I hate being the only one not in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've been wrong so many times that being wrong again just seems impossible. The odds have to swing back.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I don't even know what my edge is anymore. I'm just trading every five minutes because being flat makes me anxious.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "As soon as it hit green I closed it. I know the plan said hold but locking profit felt safer.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That stop-out made me angry enough to re-enter without thinking. Same ticker, same bias, bigger size.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "People are calling this the next runner and I don't wanna explain later why I didn't buy when everyone else did.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After all these small losses, the next trade basically has to be a winner. I'm trusting the numbers here.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm trading pre-market, regular hours, after hours… basically whenever there's a candle to look at.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I moved my stop again. Just a little. I can't stomach being wrong right at the bottom.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm not calm anymore. I'm clicking fast, breathing fast, just trying to undo that last hit.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This chart looks awful but everyone says it's about to explode. I feel dumb even hesitating.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's no way the system fails me this many times. Next trade should fix everything.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep telling myself it's one last trade, but then I see another tiny move and jump back in.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I didn't follow my target at all. I bailed early just so I could feel relieved for a second.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I re-entered immediately after closing the loss. Same direction, pure emotion, zero plan.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone's posting gain screenshots and I'm sitting here flat. Feels like I'm missing the party.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Statistically this has gone against me too many times. The next one should finally work.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm trading out of boredom more than anything. No volume, no edge, just something to do.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I know holding losers is bad but closing it would make the day officially red. I'm not ready for that.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I feel like the market embarrassed me and now I'm trying to prove a point with this next trade.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This thing already ran but people say it's early innings. I don't wanna be late to the moon.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've earned a win after today. The streak logic says it's my turn now.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep switching timeframes and finding excuses to trade. Anything looks good if you zoom enough.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I trimmed way too early again. Watching profit evaporate scares me more than missing upside.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm fully aware this is revenge trading but I'm doing it anyway. I refuse to end on that loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This ticker is trending everywhere and I feel pressure to buy even though I don't understand it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After seven losses, probability says the next trade should hit. I'm leaning on that hard.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm basically day trading noise now. No thesis, just constant entries and exits.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I keep lowering my expectations just so I can exit green faster and feel safe.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That loss put me in attack mode. I'm firing trades just to feel in control again.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone says this dip is free money and I'm scared of being the only one who skips it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've been on the wrong side too long. The next one has to flip, it just has to.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Even when I tell myself to stop, my hands just keep clicking. Flat feels uncomfortable.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I watched it hit my target and still sold early because I couldn't handle the pullback.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm trading angry right now. No patience, no discipline, just reacting.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This is blowing up everywhere and I feel pressure to buy just so I don't regret it later.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After today, a win is basically inevitable. I'm counting on the streak to end.",
+            "label": "Gamblers_Fallacy"
+        }
+    ]
+}
