@@ -399,6 +399,1502 @@
         {
             "text": "After today, a win is basically inevitable. I'm counting on the streak to end.",
             "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I literally said out loud I was done trading and then five minutes later I'm back in because the candle looked kinda interesting.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I couldn't pull the trigger even though it was my exact setup. I just kept thinking about how bad it'd feel if it failed.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That stop-out annoyed me so much I immediately reversed and doubled size. I wasn't thinking, just reacting.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone keeps saying this is a once-in-a-month move and I'm scared I'm about to miss it sitting here.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After all these losses, a win is basically due. There's no way the streak keeps going.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm taking trades just to feel busy. No real thesis, just clicking because I'm here anyway.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I sold the moment it went green even though I planned to hold. I just wanted the relief.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That loss felt disrespectful. I jumped back in immediately just to get even.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "People are spamming rocket emojis everywhere and I feel dumb not being in the trade.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've lost too many in a row for the next one not to work. The odds have to flip.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm trading on the one-minute, the five-minute, whatever shows movement. I just need action.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I let a winner turn into almost nothing because I was scared to re-enter if I sold.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I know this is emotional trading but I'm mad and I want it back now.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This stock is trending everywhere and I feel pressure to buy just to say I was part of it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After five red trades the math says green is next. I'm trusting probability.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm jumping in and out for pennies. Commissions are eating me alive but I can't stop.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I didn't want to close the loser because then I'd have to admit I was wrong.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That trade annoyed me enough to ignore my rules and fire another one instantly.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone says this pullback is free money and I don't wanna be the idiot who skipped it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's no way I stay unlucky forever. The next trade should finally hit.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep saying last trade of the day and then immediately finding another excuse to enter.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I cut the trade early because watching unrealized P/L swing makes me nervous.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm re-entering the same ticker out of pure frustration. This is personal now.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "People are already posting gains and I feel left behind sitting in cash.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After this many losses, a win feels inevitable. I'm leaning on that.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm trading through lunch even though volume is trash. Flat just feels wrong.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I moved my stop again because I couldn't handle being wrong at that level.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I slammed that order out of anger, no analysis, just vibes.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This ticker is everywhere and I feel like I'm missing the easiest money ever.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Statistically the streak should end soon. The next trade should be the one.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm over-managing every candle and turning nothing into trades.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I sold early again just to avoid the stress of holding.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That loss flipped a switch and now I'm just reacting.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone's convinced this thing is going to the moon and I don't wanna miss it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've paid my dues with losses. A win is basically owed now.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm entering trades just to feel something. No patience, no edge.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I couldn't close the loser because seeing red realized P/L hurts too much.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I revenge-clicked back into the same setup even though I knew better.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This move is already extended but what if it keeps ripping without me?",
+            "label": "FOMO"
+        },
+        {
+            "text": "After today, the next trade basically has to work. That's just how it goes.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I closed the app and reopened it because I felt like I might miss something.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I took profit way too early just to feel safe for a moment.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm trading angry and I know it. I'm just trying to undo the damage.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Everyone keeps hyping this play and I feel stupid not joining.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's no way the next trade loses too. The streak has gone on long enough.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took eight trades on the same ticker during a low-volume chop. Most entries were on minor candle breaks. Ended flat after commissions.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Entered the position late and exited quickly once it went slightly green. Price continued to trend in the original direction after exit.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered the same ticker immediately after a stop-out with increased size. Second entry ignored original risk parameters.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after a large breakout candle following heavy volume and social media attention. Entry occurred far from support.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased position size after several consecutive losing trades, expecting the next setup to reverse results.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Multiple scalps taken on the one-minute chart without a clear higher-timeframe bias. Trades overlapped frequently.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Held a losing position beyond the planned stop level and adjusted the stop lower as price continued against the trade.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After an initial loss, executed a follow-up trade on the same setup with no confirmation and larger exposure.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered a trade after observing strong momentum and widespread trader participation despite missing the original setup.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Assumed a winning trade was likely after a series of losses and committed additional capital to the next entry.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Continued trading throughout the session despite deteriorating conditions and lack of valid setups.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited a profitable trade early at the first pullback, well before the planned target.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Immediately reversed direction after being stopped out, using a larger position size than the initial trade.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered near the top of an extended move after observing rapid price acceleration and high participation.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Justified larger risk on the next trade due to an unusually long streak of losing outcomes.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Executed repeated entries and exits within a short time window without allowing trades to develop.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Maintained a losing position as price moved further away from the original thesis, waiting for a reversal.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Took a follow-up trade shortly after a loss with minimal analysis and reduced attention to risk limits.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered after seeing continued upward momentum and widespread interest, despite poor risk-to-reward.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Expected the next trade to succeed primarily because multiple previous attempts had failed.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Placed trades during periods of low volatility and unclear direction, resulting in frequent small losses.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a position prematurely to secure a small gain rather than follow the original trade plan.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered aggressively on the same instrument after a loss, abandoning prior entry criteria.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought into a move after observing strong continuation and widespread trader participation late in the trend.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased confidence in the next trade based solely on the length of the prior losing streak.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took multiple marginal setups throughout the day instead of waiting for higher-quality opportunities.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Allowed a winning trade to turn into a loss by hesitating to exit when price reversed.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a rapid follow-up trade after a loss with little regard for confirmation or context.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered a trade after seeing repeated breakout attempts and increased chatter, despite late timing.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Relied on the assumption that results would improve simply because recent trades had performed poorly.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Continued initiating trades despite reaching daily trade limits and diminishing performance.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Reduced profit targets mid-trade to ensure a positive outcome rather than allow the setup to play out.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Responded to a losing trade by increasing frequency and size of subsequent trades.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered after price had already made a significant move, driven by visible momentum and participation.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Assumed probability favored a winning outcome on the next trade after a prolonged losing sequence.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Repeatedly switched bias and direction within the same session, resulting in excessive trade count.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Delayed exiting a losing trade in anticipation of a return to breakeven.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Took a new position immediately following a loss without reassessing market conditions.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered a trade after observing strong continuation moves despite missing the initial breakout.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Expected the next setup to succeed primarily due to the number of recent failed trades.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Maintained constant market exposure throughout the session regardless of setup quality.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited trades quickly once they showed profit, even when the broader setup remained valid.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Increased aggressiveness after a loss by trading the same instrument repeatedly.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered a trade influenced by strong momentum and visible crowd participation late in the move.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Placed greater confidence in the next trade based on the expectation that losses would not continue indefinitely.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Several trades were taken throughout the session without a clear primary setup. Activity remained high despite limited market movement.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A profitable position was closed early after a small pullback, even though the broader trend remained intact.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Following a loss, a new trade was placed quickly on the same instrument with increased size and reduced planning.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "A trade was entered after a strong price move had already occurred, with limited attention to risk-to-reward.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Position size was increased after a sequence of losses, based on the expectation of an imminent win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Multiple short-term trades were executed during a low-quality market environment.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A losing position was held longer than planned while waiting for price to return toward entry.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "A follow-up trade was placed immediately after a loss without reassessing market structure.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entry occurred late in the move after observing continued momentum and broad participation.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Confidence in the next trade was based primarily on the length of the previous losing streak.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trades were taken frequently across multiple timeframes without a consistent strategy.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Profit targets were adjusted closer mid-trade to avoid the possibility of giving back gains.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Risk limits were relaxed after a losing trade in an attempt to recover losses quickly.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "A position was opened after price acceleration increased, despite missing the original setup.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Trade sizing decisions were influenced by the belief that recent losses made a win more likely.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "The trader remained active throughout the day despite a lack of high-quality opportunities.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A trade was exited prematurely to secure a modest gain rather than follow the original plan.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Another trade was initiated shortly after a loss with limited confirmation.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entry was made after observing strong continuation moves and widespread interest.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Expectations for the next trade were shaped by the assumption that results would soon reverse.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "A high number of trades were placed during periods of sideways price action.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A winning trade was closed early once price hesitated, despite no invalidation of the setup.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "The same instrument was traded repeatedly after a loss with increasing aggressiveness.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "A trade was entered late in the trend due to visible momentum and external attention.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Risk exposure increased after multiple losses under the assumption that probability favored a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trade frequency remained high even as performance deteriorated during the session.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A losing trade was maintained beyond the original exit criteria in anticipation of a rebound.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "A rapid re-entry followed a stop-out without sufficient analysis.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "A position was taken after a move had already attracted significant participation.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Decision-making on the next trade relied heavily on the expectation that a streak would end.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trades were initiated continuously throughout the session regardless of setup quality.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Profit was taken quickly to avoid uncertainty, despite favorable market conditions.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Subsequent trades increased in urgency following an initial loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entry occurred after observing strong price movement and heightened trader engagement.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The next trade was approached with increased confidence due to prior unsuccessful attempts.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Market exposure was maintained throughout the day with minimal time spent flat.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "A position was exited early to avoid the discomfort of potential drawdown.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Trading behavior became more aggressive following a loss, with less emphasis on planning.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "A trade was entered based on momentum continuation rather than initial setup conditions.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The assumption that outcomes would normalize influenced increased risk on the next trade.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Stayed active most of the session, taking multiple marginal setups as price moved sideways. Remaining flat felt unproductive.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited the trade shortly after it turned profitable, preferring to secure a small gain rather than wait through uncertainty.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "A second position was opened quickly after a stop-out, with noticeably higher urgency and size.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered after momentum accelerated and attention around the ticker increased, despite the move being extended.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Position size was adjusted upward after a run of losses, driven by the sense that results should soon improve.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Several trades were taken back-to-back with limited pause, as waiting for clarity felt uncomfortable.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Held the position past the planned exit, giving it more room than intended as price moved against it.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Another trade was initiated immediately following a loss, with less emphasis on confirmation.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Joined the move after repeated strong candles, influenced by visible participation from other traders.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Approached the next trade with increased confidence simply because several previous attempts had failed.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trade frequency remained high throughout the day, even as setups became less distinct.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Reduced the profit target mid-trade to avoid the discomfort of watching unrealized gains fluctuate.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After taking a loss, trading activity became faster and more aggressive on the same instrument.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered late in the trend after observing continued strength and growing interest around the stock.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Risk assumptions on the next trade were influenced by the belief that the recent streak was unlikely to continue.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Continued initiating trades despite diminishing focus and unclear market direction.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a position early once price hesitated, prioritizing certainty over the original plan.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered the same market shortly after a loss, driven more by urgency than structure.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Took a position after noticing strong follow-through and widespread attention, even though the entry was late.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Expectations for the next trade were shaped by the feeling that recent outcomes should naturally balance out.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trades were placed frequently as the session progressed, with little time spent observing without action.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Allowed a losing trade additional time in hopes that price would return closer to entry.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "A new trade followed a loss almost immediately, with reduced patience for ideal conditions.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered after a strong breakout once it became clear many others were participating.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased conviction on the next setup based largely on the length of the prior losing sequence.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Maintained near-constant exposure to the market, even during periods lacking clear opportunity.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Chose to lock in a modest gain rather than stay exposed to potential pullbacks.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Trading decisions became more reactive following a loss, with faster execution and less review.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered a trade after observing continued momentum and rising interest, despite stretched conditions.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Approached the next trade assuming outcomes would improve simply due to recent poor performance.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "The session involved frequent entries and exits, often before trades had time to develop.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited early once a trade showed profit, preferring relief over potential upside.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After a loss, additional trades were taken with a noticeable increase in urgency.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Joined a move after it gained visibility and momentum across the market.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Position sizing decisions reflected the assumption that a win was due after multiple losses.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trading activity continued steadily throughout the day, even as focus and edge declined.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Delayed exiting a losing position, waiting for a more favorable price to reduce discomfort.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "A follow-up trade was taken quickly after a loss, with less attention to risk parameters.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered after observing strong continuation and increased participation from other traders.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Kept taking small trades even though nothing really lined up. Ended the day tired and basically flat.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took profit as soon as it turned green. Didn’t want to sit through another pullback.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Got stopped out and jumped back in right after, same ticker, bigger size.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing it rip all morning and hearing everyone talk about it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Sized up on the next trade after a string of losses, felt like one had to work.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Stayed active all day even though the market was slow. Sitting out felt worse.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Cut the trade early once it hesitated, didn’t want to give anything back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered fast after a loss, barely waited for confirmation.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Chased the move after it was already trending and clearly crowded.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Expected the next setup to hit after too many red ones in a row.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took trade after trade without really stepping back to reassess.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed the position quickly just to feel some relief.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After the loss, trades got faster and less patient.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered late because it felt uncomfortable watching it run without me.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Pushed more size on the next trade, thinking the streak had to end.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading even though focus was slipping.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Let the winner go early just to lock something in.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Went right back in after a stop, still annoyed about the last one.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing nonstop momentum and chatter.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Felt like a win was due after everything earlier failed.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Trades kept stacking up even without clear reasons.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Held the loser longer than planned, hoping it would come back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Another trade went on immediately after a loss, no pause.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Jumped in once it was obvious everyone else was involved.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Assumed probability would turn things around on the next trade.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Stayed in the market most of the session without many breaks.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took a small win instead of waiting through uncertainty.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Trading felt rushed after the first loss of the day.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Entered once the move felt obvious and hard to ignore.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Believed the next trade would fix the day after earlier losses.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept clicking in and out without letting trades breathe.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited early just to avoid watching price swing.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-traded the same name after a loss, still heated.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after seeing nonstop green candles.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Sized up because it felt like losses had gone on long enough.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept taking trade after trade today even though nothing really looked perfect. Each setup was small, but I felt like if I didn’t do something I’d miss the chance to make a few pips here or there, and sitting on the sidelines was driving me crazy.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I closed my position way too early even though the trend was still intact. I just didn’t want to see it go red again and lose the small gains I had already locked in.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After getting stopped out, I jumped back in immediately on the same ticker, and I even increased my position size. I knew it was impulsive, but I felt like I had to get that money back before the market moved on me.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I entered late on the breakout because everyone on social was talking about it. Even though the candle had already run far, I felt like if I didn’t get in now I’d be missing out on the next leg.",
+            "label": "FOMO"
+        },
+        {
+            "text": "After a string of losses, I sized up on the next trade. My logic was that I was due for a win and that one trade could make up for the money I lost earlier in the day.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I stayed in front of the screen for hours taking small trades on almost nothing. I knew the setups weren’t perfect, but I hated feeling like I wasn’t doing something productive with my day.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I let a trade run for longer than I planned because I was hoping it would come back. Even though my plan said to cut it, I just couldn’t face realizing the loss yet.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Right after a small loss, I entered another trade on the same stock, bigger than the first. I told myself it made sense because I could fix the loss immediately, even though I knew I wasn’t thinking clearly.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I bought into a strong move that had already run up because everyone was talking about it and I didn’t want to feel left out. I know the price was high, but the fear of missing out overpowered the setup.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I increased my risk on the next trade after a few losses, reasoning that statistically a win had to happen soon. I felt like if I didn’t act, the losing streak would continue and I’d never recover.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept scalping small moves across multiple charts even though nothing really screamed a strong setup. I kept thinking that any small edge could add up if I just kept trading.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I sold a trade after just a minor gain, even though my original target was much higher. I kept worrying it could turn against me and didn’t want to give any of it back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After a loss, I immediately placed another trade on the same ticker. I knew it wasn’t ideal, but I wanted to even things out quickly and it felt urgent.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I entered a trade after seeing momentum pick up and the stock trending everywhere online. Even though the setup wasn’t clean, I felt like I had to get in before the move went too far.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I assumed the next trade would work after losing multiple trades in a row. My logic was that I was overdue for a win, so I felt justified taking more risk.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept taking trades all day, hopping in on setups that were far from perfect. Even though I knew it was reckless, the idea of missing any move made me keep clicking.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I exited a winning position too early because I didn’t want the stress of seeing it pull back. Even though my plan said to hold, the uncertainty made me sell.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I re-entered the same market immediately after a stop-out with bigger size. I knew it was emotionally driven, but I wanted to fix the loss and couldn’t wait.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I bought into a strong trend after seeing it everywhere on social and news. Even though it was late in the move, I felt like not joining would make me miss the next jump.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I added more to a trade after several losing attempts. I told myself the odds had to flip and that I couldn’t keep losing forever.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept scalping tiny moves all morning even though setups were weak; sitting idle felt worse than risking a small loss.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I sold the trade after a small pop even though it was trending; I didn’t want to see the green turn back to red.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After being stopped out, I jumped back in bigger than before; I felt like I had to win that back immediately.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late because everyone online was bullish; I didn’t want to miss what looked like a big run.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased my size after three losses; I convinced myself I was due for a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept clicking in and out on small setups; doing nothing felt like wasted time.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a winning trade too early; I just couldn’t handle watching it dip.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a follow-up trade right after a loss with no plan; I just wanted to fix the last one.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing a strong breakout and chatter everywhere; the fear of missing out was stronger than logic.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Doubled down after multiple losses, thinking the next trade had to pay off eventually.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took multiple trades on tiny moves while waiting for a proper setup; sitting idle felt boring.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I exited a trade as soon as it ticked up; I was worried I’d give it back if I held.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After a losing streak, I went back into the same stock bigger; I knew it was emotional but felt I needed to recover.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Jumped in after noticing heavy momentum and lots of chatter; I didn’t want to miss the next leg up.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added more risk after a few losses; I convinced myself luck had to change.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading even when setups weren’t clean; sitting out felt like I’d be missing out on pips.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took profit very early; I didn’t want to see a good trade turn bad.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered the same stock immediately after a loss; urgency drove the trade more than logic.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after a long run; I knew it was extended but couldn’t stand being left behind.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Bumped up my position size after a losing streak, thinking the next one had to hit.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept jumping between charts and trades all day, even when conditions weren’t good.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a winner quickly just to lock in gains; I didn’t trust the market to stay kind.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After a stop-out, I jumped back in without proper planning; I just wanted to get even.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Joined a crowded trade late; seeing everyone else in made me feel like I had to act.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased my risk after a string of losses; I assumed a win had to happen soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept trading small moves all session; doing nothing felt wrong even if setups were weak.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took profit early on a good move; I just couldn’t stomach watching unrealized gains fluctuate.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed another trade immediately after a loss; impatience and frustration drove the decision.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after a breakout with everyone talking about it; I felt pressure to be part of the move.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added more to a trade after losing multiple times; it felt like I was due for a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Scalped repeatedly throughout the session even though setups weren’t ideal; sitting idle felt wasted.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited a winner quickly to avoid potential pullback; I felt uneasy holding it longer.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered immediately after a loss; I just wanted to get it back before the market moved.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought a crowded trade late in the run; the fear of missing out overrode my rules.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Took a larger position after consecutive losses, hoping the streak would reverse.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading all morning without waiting for proper setups; doing nothing made me anxious.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed the position for a small gain rather than let it swing; I didn’t trust it to hold.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Jumped into another trade right after a loss; I wanted revenge more than a calculated plan.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after momentum pushed higher and chatter increased; I didn’t want to miss the move.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased trade size after several losses, thinking a win was bound to happen soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept entering multiple trades all session even when conditions were choppy; staying idle felt worse.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a winning trade too early; I didn’t want to risk giving anything back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a trade immediately after a loss; urgency and frustration made me act before analyzing.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after seeing everyone pile in; fear of missing out was stronger than the setup.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Took bigger risk after losing streak; I felt a win was due soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept flipping trades across charts, even though nothing looked strong; felt like I had to do something.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited early to lock in a profit; uncertainty made me act before plan completion.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered another trade immediately after losing; wanted to make up the money fast.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing strong continuation and chatter online; late entry, but FOMO kicked in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a position after multiple losing trades; felt like I was due for a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept trading all day; even weak setups felt better than staying flat.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took profit early on a green move; I didn’t want to risk losing it back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered after a stop-out; I just wanted to fix the loss before moving on.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Jumped in after a big move everyone was talking about; I didn’t want to be left out.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased size after consecutive losses; I felt the next trade had to succeed.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Scalped repeatedly even though setups weren’t strong; being idle made me anxious.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a winner early to avoid stress; couldn’t trust it to stay up.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a trade immediately after a loss; emotional reaction was stronger than analysis.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late in a trend after seeing high volume and chatter; FOMO won over rules.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added more risk after losing trades; felt like a win was overdue.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading all morning; weak setups felt better than sitting idle.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold early to lock in gains; didn’t want to risk a reversal.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered another trade immediately after a loss; urgency outweighed careful analysis.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late on a strong move; didn’t want to miss the trend despite risk.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased size after multiple losses; I felt a win had to happen.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I kept taking trades even without strong setups; doing nothing felt worse than risking a small loss.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited a trade quickly to secure profit; couldn’t handle unrealized swings.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered immediately after a loss; wanted to recover fast rather than wait.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after momentum and chatter picked up; fear of missing out made me act.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Took bigger risk after a streak of losses; assumed probability was on my side.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Scalped repeatedly without waiting for quality setups; felt better than doing nothing.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed the trade early to avoid losing paper profits; discomfort made me exit.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a follow-up trade immediately after a loss; emotions overrode caution.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late in a trending stock after seeing everyone pile in; FOMO drove the entry.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added more to the position after multiple losses; felt like a win was due soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading weak setups all morning; staying idle made me anxious.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold early to lock in gains; didn’t want to risk giving back profits.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered immediately after a loss; urgency outweighed logical setup evaluation.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after noticing a strong move and chatter; fear of missing out kicked in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased position size after a string of losses; assumed I was due for a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Repeated small trades all session even though setups weren’t ideal; doing nothing felt worse.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a profitable trade too soon; I didn’t trust the market to keep it going.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a trade right after a stop-out; wanted to recover the loss immediately.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing a clear momentum move and social chatter; late entry but didn’t want to miss out.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Took a larger position after multiple losses; believed the next trade was likely to succeed.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Made a few trades on small moves, nothing too serious, just trying to stay active.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed the position after a small gain; didn’t stick around to see how it developed.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Jumped back in after taking a small loss; the next trade went in faster than usual.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after noticing a lot of chatter online; the move was already underway.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Placed a bigger trade after a few losses; hoping this one would work out.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took several small trades throughout the session; just trying to catch something.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited early when it turned profitable; didn’t want to risk giving anything back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered another trade right after a stop-out; didn’t think much, just went for it.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing the price run; didn’t want to sit on the sidelines.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a position after a losing streak; hoping it would turn around this time.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading throughout the day, even when setups weren’t clear.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took profit quickly; didn’t hold to see if it would move further.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "After a loss, another trade was opened immediately; size was a bit larger than usual.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought a stock that was moving up fast; it seemed like everyone was in already.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Increased risk after several losing trades; felt like one had to work soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took multiple trades in a row; didn’t wait for clear setups.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed the trade early; I wanted to lock in the small profit.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered the same market after a loss; decision was quick and impulsive.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after noticing momentum; seemed like the move wasn’t stopping yet.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a losing trade; hoping the next move would be positive.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept flipping trades throughout the session; just trying to catch small moves.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold a position after minor gains; didn’t wait for the target to be reached.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered another trade immediately after a small loss; reaction was quick, almost automatic.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought a stock after seeing it run; it felt like the move was too good to ignore.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Placed a larger trade after a string of losses; assumed it would pay off soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Traded more than usual; setups weren’t strong but I kept going anyway.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took a small win and exited; didn’t stay in for the bigger move.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a trade quickly after a loss; wanted to recover fast.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after noticing lots of volume; entry was late but seemed necessary.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a position after losses; hoping the next one would be profitable.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading weak setups; sitting idle didn’t feel right.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed early to secure gains; didn’t want to risk a reversal.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered the same market after a loss; reaction was fast and emotional.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late in a trending stock; felt like I had to be part of the move.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Placed a larger trade after losing streak; hoping for a positive turn.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took trades throughout the session; setups weren’t clear but kept going.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold a winner early; didn’t wait for the trade to develop fully.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed another trade right after a stop-out; acted fast without much thought.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing momentum and chatter online; entry was late but I joined anyway.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a losing position; felt like the next trade had to work.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading even with weak setups; doing nothing felt worse.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Exited a trade early for small profit; didn’t want to risk reversal.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered after a loss; acted quickly, not thinking much.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after seeing the stock run; FOMO pushed me in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Took bigger size after consecutive losses; hoping to turn things around.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Traded multiple small setups; felt like doing something was better than nothing.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold a winning trade early; didn’t trust it to hold.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed a trade immediately after a stop; emotional response to the loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late in a trending move; entry wasn’t ideal but felt necessary.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added more to a losing trade; assumed next one would work.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Kept trading all day; setups were unclear but kept going anyway.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Took small profits early; didn’t want to risk losing them.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Entered another trade immediately after a loss; reaction was quick and automatic.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought a stock after seeing momentum and chatter; felt like I had to join.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Placed a bigger trade after several losses; hoping for a reversal.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Took a series of trades with weak setups; sitting idle felt wrong.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Closed a profitable trade early; didn’t stay in for bigger gains.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Re-entered after a loss; quick reaction rather than careful analysis.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought late after seeing volume pick up; felt like I had to get in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a losing position; expecting the next trade to be positive.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Traded multiple small moves; doing nothing felt worse than risking small losses.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Sold early to lock in profit; didn’t want to see it turn against me.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Placed another trade immediately after a stop; wanted to recover fast.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Bought after seeing momentum and chatter; late entry but joined anyway.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Added to a losing position; hoped the next trade would work out.",
+            "label": "Gamblers_Fallacy"
         }
     ]
 }
