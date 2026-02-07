@@ -8,17 +8,24 @@ interface TradeLogProps {
 }
 
 export function TradeLog({ trades }: TradeLogProps) {
+  const escapeCsvField = (value: string) => {
+    if (value.includes('"')) {
+      value = value.replace(/"/g, '""');
+    }
+    return /[",\n]/.test(value) ? `"${value}"` : value;
+  };
+
   const downloadCSV = () => {
     const headers = ['Date', 'Ticker', 'Type', 'Order Type', 'Qty', 'Price', 'Total', 'Status', 'Stop Loss', 'Take Profit'];
     const rows = trades.map(t => [
-      new Date(t.timestamp).toLocaleString(),
-      t.ticker,
-      t.type,
-      t.orderType,
-      t.quantity,
+      escapeCsvField(new Date(t.timestamp).toLocaleString()),
+      escapeCsvField(t.ticker),
+      escapeCsvField(t.type),
+      escapeCsvField(t.orderType),
+      t.quantity.toString(),
       t.price.toFixed(2),
       t.total.toFixed(2),
-      t.status,
+      escapeCsvField(t.status),
       t.stopLoss?.toFixed(2) ?? '',
       t.takeProfit?.toFixed(2) ?? '',
     ]);
