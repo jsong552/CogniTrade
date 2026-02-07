@@ -8,6 +8,7 @@ import TradePage from "./pages/TradePage";
 import LogsPage from "./pages/LogsPage";
 import AnalysisPage from "./pages/AnalysisPage";
 import SettingsPage from "./pages/SettingsPage";
+import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/trade" element={<TradePage />} />
           <Route path="/logs" element={<LogsPage />} />
           <Route path="/analysis" element={<AnalysisPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

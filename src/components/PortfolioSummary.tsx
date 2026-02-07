@@ -1,4 +1,4 @@
-import { Position } from '@/lib/mockData';
+import type { Position } from '@/lib/tradingStore';
 import { motion } from 'framer-motion';
 
 interface PortfolioSummaryProps {
