@@ -2359,6 +2359,10 @@
         {
             "text": "There's a lot of hype around this earnings season, so I'm trading more names than usual.",
             "label": "Overtrading"
+        },
+        {
+            "text": "I better sell early to cut early the loss. I can accept a 2% loss.",
+            "label": "Loss_Aversion"
         }
     ]
 }
