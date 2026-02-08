@@ -1,6 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTradingStore } from '@/lib/tradingStore';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Mic, AudioLines } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -25,6 +35,21 @@ export function TradePanel({ ticker }: TradePanelProps) {
   const [limitPrice, setLimitPrice] = useState('');
   const [stopLoss, setStopLoss] = useState('');
   const [takeProfit, setTakeProfit] = useState('');
+  const [isThoughtModalOpen, setIsThoughtModalOpen] = useState(false);
+  const [thoughts, setThoughts] = useState('');
+  const [transcript, setTranscript] = useState('');
+  const [transcribeStatus, setTranscribeStatus] = useState<'idle' | 'connecting' | 'recording' | 'processing' | 'error'>('idle');
+  const [isRecording, setIsRecording] = useState(false);
+
+  const wsRef = useRef<WebSocket | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const workletNodeRef = useRef<AudioWorkletNode | null>(null);
+  const sourceNodeRef = useRef<MediaStreamAudioSourceNode | null>(null);
+  const zeroGainRef = useRef<GainNode | null>(null);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001';
+  const backendWsUrl = backendUrl.replace(/^http/, 'ws') + '/transcribe/stream';
 
   const qty = parseInt(quantity) || 0;
   const currentPrice = ticker.price || 0;
@@ -118,8 +143,160 @@ export function TradePanel({ ticker }: TradePanelProps) {
       setLimitPrice('');
       setStopLoss('');
       setTakeProfit('');
+      setTranscript('');
+      setThoughts('');
+      setTranscribeStatus('idle');
+      setIsThoughtModalOpen(true);
     }
   };
+
+  const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+    const bytes = new Uint8Array(buffer);
+    const chunkSize = 0x8000;
+    let binary = '';
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+    }
+    return btoa(binary);
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+    setTranscribeStatus('processing');
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({ type: 'end_of_stream' }));
+    }
+    cleanupMedia();
+  };
+
+  const cleanupMedia = () => {
+    mediaStreamRef.current?.getTracks().forEach(track => track.stop());
+    mediaStreamRef.current = null;
+    sourceNodeRef.current?.disconnect();
+    workletNodeRef.current?.disconnect();
+    zeroGainRef.current?.disconnect();
+    sourceNodeRef.current = null;
+    workletNodeRef.current = null;
+    zeroGainRef.current = null;
+    if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+      audioContextRef.current.close();
+    }
+    audioContextRef.current = null;
+  };
+
+  const startRecording = async () => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      toast.error('Microphone access not supported in this browser');
+      return;
+    }
+
+    try {
+      setTranscribeStatus('connecting');
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
+
+      if (!window.AudioWorkletNode) {
+        toast.error('Streaming not supported', { description: 'AudioWorklet is not available in this browser.' });
+        setTranscribeStatus('error');
+        cleanupMedia();
+        return;
+      }
+
+      const audioContext = new AudioContext();
+      audioContextRef.current = audioContext;
+      await audioContext.audioWorklet.addModule(new URL('../worklets/pcm-processor.ts', import.meta.url));
+
+      const workletNode = new AudioWorkletNode(audioContext, 'pcm-processor', {
+        processorOptions: { targetSampleRate: 24000, chunkSize: 1920 },
+      });
+      workletNodeRef.current = workletNode;
+
+      const sourceNode = audioContext.createMediaStreamSource(stream);
+      sourceNodeRef.current = sourceNode;
+
+      const zeroGain = audioContext.createGain();
+      zeroGain.gain.value = 0;
+      zeroGainRef.current = zeroGain;
+
+      sourceNode.connect(workletNode);
+      workletNode.connect(zeroGain);
+      zeroGain.connect(audioContext.destination);
+
+      const ws = new WebSocket(backendWsUrl);
+      wsRef.current = ws;
+
+      ws.onopen = () => {
+        setTranscribeStatus('recording');
+        setIsRecording(true);
+        ws.send(
+          JSON.stringify({
+            type: 'setup',
+            model_name: 'default',
+            input_format: 'pcm',
+          })
+        );
+      };
+
+      ws.onmessage = event => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === 'text' && data.text) {
+            setTranscript(prev => `${prev} ${data.text}`.trim());
+          } else if (data.type === 'end_of_stream') {
+            ws.close();
+          } else if (data.type === 'error') {
+            setTranscribeStatus('error');
+            toast.error('Transcription error', { description: data.message || 'Gradium error' });
+          }
+        } catch {
+          // Ignore non-JSON messages
+        }
+      };
+
+      ws.onerror = () => {
+        setTranscribeStatus('error');
+        toast.error('Transcription connection failed');
+        cleanupMedia();
+      };
+
+      ws.onclose = () => {
+        setTranscribeStatus('idle');
+      };
+
+      workletNode.port.onmessage = event => {
+        if (ws.readyState !== WebSocket.OPEN) return;
+        const audio = arrayBufferToBase64(event.data as ArrayBuffer);
+        ws.send(JSON.stringify({ type: 'audio', audio }));
+      };
+    } catch (error) {
+      setTranscribeStatus('error');
+      toast.error('Microphone access failed');
+      cleanupMedia();
+    }
+  };
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      setTranscript('');
+      startRecording();
+    }
+  };
+
+  useEffect(() => {
+    if (!isThoughtModalOpen && isRecording) {
+      stopRecording();
+    }
+  }, [isThoughtModalOpen, isRecording]);
+
+  useEffect(() => {
+    return () => {
+      stopRecording();
+      wsRef.current?.close();
+      cleanupMedia();
+    };
+  }, []);
 
   return (
     <div className="glass-card p-4 space-y-4">
@@ -294,6 +471,84 @@ export function TradePanel({ ticker }: TradePanelProps) {
           : `Place ${orderType === 'limit' ? 'Limit' : orderType === 'stop-loss' ? 'Stop Loss' : 'Take Profit'} Order`
         }
       </Button>
+
+      <Dialog open={isThoughtModalOpen} onOpenChange={setIsThoughtModalOpen}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>Record your thought process</DialogTitle>
+            <DialogDescription>
+              Capture why you made this trade while it is still fresh. Record a voice note OR write a quick note.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="rounded-lg border border-border bg-muted/40 p-6">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <AudioLines className="h-4 w-4 text-muted-foreground" />
+                Voice note
+              </div>
+              <div className="mt-6 flex flex-col items-center gap-3">
+                <Button
+                  variant={isRecording ? 'default' : 'outline'}
+                  size="lg"
+                  onClick={toggleRecording}
+                  aria-pressed={isRecording}
+                  disabled={transcribeStatus === 'connecting'}
+                  className="h-16 rounded-full gap-3 px-10 text-base font-semibold shadow-lg shadow-primary/10 ring-1 ring-primary/20"
+                >
+                  <span className="relative flex h-3 w-3">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/40" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-primary" />
+                  </span>
+                  <Mic className="h-5 w-5" />
+                  {isRecording ? 'Recording...' : 'Record'}
+                </Button>
+                <span className="text-xs text-muted-foreground">
+                  {isRecording ? 'Tap again to stop' : 'Tap to start recording'}
+                </span>
+              </div>
+              <p className="mt-4 text-center text-xs text-muted-foreground">
+                Powered by Gradium STT.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-border bg-muted/30 p-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs text-muted-foreground">Live transcript</Label>
+                <span className="text-[11px] text-muted-foreground">
+                  {transcribeStatus === 'recording' && 'Listening...'}
+                  {transcribeStatus === 'processing' && 'Transcribing...'}
+                  {transcribeStatus === 'connecting' && 'Connecting...'}
+                  {transcribeStatus === 'error' && 'Error'}
+                  {transcribeStatus === 'idle' && 'Idle'}
+                </span>
+              </div>
+              <div className="mt-2 min-h-[64px] text-sm text-foreground">
+                {transcript || 'Your transcript will appear here.'}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-xs text-muted-foreground">Quick notes (optional)</Label>
+              <Textarea
+                value={thoughts}
+                onChange={e => setThoughts(e.target.value)}
+                placeholder="What signal did you see? What risk are you taking? What is your exit plan?"
+                className="min-h-[120px] bg-muted/30"
+              />
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setIsThoughtModalOpen(false)}>
+              Skip for now
+            </Button>
+            <Button onClick={() => setIsThoughtModalOpen(false)}>
+              Save note
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

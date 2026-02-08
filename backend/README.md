@@ -23,6 +23,12 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+4. Configure Gradium STT:
+```bash
+export GRADIUM_API_KEY=gd_your_api_key_here
+export GRADIUM_REGION=us
+```
+
 ## Running the Server
 
 ```bash
@@ -57,7 +63,10 @@ Service health check.
 ```
 
 ### `POST /transcribe`
-Transcribe audio to text (placeholder - not yet implemented).
+Transcribe audio to text (single-shot). Send multipart form-data with `audio` and optional `input_format` (`opus`, `wav`, or `pcm`).
+
+### `WS /transcribe/stream`
+WebSocket proxy for Gradium streaming STT. Send Gradium-style messages (`setup`, `audio`, `end_of_stream`) and receive `text` messages as they arrive.
 
 ### `POST /analyze_journal`
 Analyze journal entries (placeholder - not yet implemented).
