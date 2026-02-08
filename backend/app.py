@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import sys
 from threading import Thread
 
 from flask import Flask, jsonify, request
@@ -10,11 +11,27 @@ from dotenv import load_dotenv
 from websockets.exceptions import ConnectionClosed
 from websockets.sync.client import connect as ws_connect
 
+# Add the backend directory to path for importing the bias detector
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from journal_model_training_script.train_bias_detector import TradingBiasDetector
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 sock = Sock(app)
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+
+# Initialize the Trading Bias Detector (lazy loading to speed up startup)
+_bias_detector = None
+
+def get_bias_detector():
+    """Lazy load the bias detector on first use."""
+    global _bias_detector
+    if _bias_detector is None:
+        print("Loading Trading Bias Detector model...")
+        _bias_detector = TradingBiasDetector()
+        print("Trading Bias Detector model loaded successfully!")
+    return _bias_detector
 
 
 def _gradium_ws_url() -> str:
@@ -104,11 +121,53 @@ def transcribe_stream(ws):
                 ws.send(json.dumps({'type': 'error', 'message': 'Gradium connection closed'}))
                 break
 
-# Analyze journal endpoint (placeholder)
+# Analyze journal endpoint - Trading Bias Detector
 @app.route('/analyze_journal', methods=['POST'])
 def analyze_journal():
-    # TODO: Implement journal analysis logic
-    pass
+    """
+    Analyze a trading journal entry for psychological biases.
+    
+    Request body (JSON):
+        - text: The journal entry text to analyze
+    
+    Response:
+        - biases: Dictionary of bias names to probability scores (0-1)
+        - detected: List of biases above the 0.4 threshold
+        - message: Human-readable summary
+        - percentages: Dictionary of bias names to percentage strings
+    """
+    try:
+        data = request.get_json()
+        
+        if not data or 'text' not in data:
+            return jsonify({
+                'error': 'Missing required field: text',
+                'usage': 'POST with JSON body: {"text": "Your journal entry here..."}'
+            }), 400
+        
+        text = data['text'].strip()
+        
+        if not text:
+            return jsonify({
+                'error': 'Text field cannot be empty'
+            }), 400
+        
+        # Get the bias detector and run inference
+        detector = get_bias_detector()
+        result = detector.predict(text)
+        
+        return jsonify({
+            'success': True,
+            'biases': result['biases'],
+            'detected': result['detected'],
+            'message': result['message'],
+            'percentages': result['percentages']
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'error': f'Analysis failed: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

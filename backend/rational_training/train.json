@@ -1895,6 +1895,10 @@
         {
             "text": "Added to a losing position; hoped the next trade would work out.",
             "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "This stock I've been buying has been going down so much, so I'm doubling back because surely it's gonna go back up.",
+            "label": "Revenge_Trading"
         }
     ]
 }

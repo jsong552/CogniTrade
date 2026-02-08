@@ -217,7 +217,7 @@ def create_tokenizer():
 # TRAINING LOOP
 # ============================================================================
 
-def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS):
+def train_model(model, train_loader, val_loader, tokenizer, num_epochs=NUM_EPOCHS):
     """
     Training loop with AdamW optimizer and linear warmup schedule.
     
@@ -225,6 +225,7 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS):
         model: The RoBERTa model to train
         train_loader: DataLoader for training data
         val_loader: DataLoader for validation data
+        tokenizer: The tokenizer instance (reused to avoid network calls)
         num_epochs: Number of training epochs
     
     Returns:
@@ -317,7 +318,7 @@ def train_model(model, train_loader, val_loader, num_epochs=NUM_EPOCHS):
         # Save best model
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
-            save_model(model, create_tokenizer())
+            save_model(model, tokenizer)
             print(f"  ✓ New best model saved!")
         
         print()
@@ -552,7 +553,7 @@ def main():
     print(f"  Device: {DEVICE}")
     print()
     
-    trained_model = train_model(model, train_loader, val_loader, NUM_EPOCHS)
+    trained_model = train_model(model, train_loader, val_loader, tokenizer, NUM_EPOCHS)
     
     # Final save
     print("\nTraining complete!")

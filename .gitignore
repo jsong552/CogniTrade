@@ -25,3 +25,6 @@ dist-ssr
 *.sln
 *.sw?
 venv
+
+# Models
+/backend/models/trading_bias_detector/*
