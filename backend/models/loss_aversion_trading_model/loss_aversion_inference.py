@@ -1,12 +1,13 @@
-"""Score revenge trading from raw trade data.
+"""Score loss aversion from raw trade data.
 
-Uses a baseline-vs-post-loss windowing approach:
-- For each loss event, compare the 15 trades *before* to the 5 trades
-  *starting at* the loss.
-- Compute ratio/delta features between the two windows.
-- Return per-event revenge probability from the trained model.
+Uses a sliding-window approach:
+- 30-trade windows with 10-trade stride
+- Computes core features + loss-aversion-specific indicators
+  (small_gain_frac, large_loss_frac, loss_tail_ratio, asymmetry_index,
+   gain_clipping)
+- Returns per-window loss aversion probability.
 
-Public API: ``score_revenge(df)``
+Public API: ``score_loss_aversion(df)``
 """
 
 import sys
@@ -20,9 +21,8 @@ import pandas as pd
 # Paths
 # ---------------------------------------------------------------------------
 _THIS_DIR = Path(__file__).resolve().parent
-_DEFAULT_MODEL = _THIS_DIR / "revenge_model.joblib"
+_DEFAULT_MODEL = _THIS_DIR / "loss_aversion_model.joblib"
 
-# Add backend dir so we can import extract_features
 _BACKEND_DIR = _THIS_DIR.parent.parent
 if str(_BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(_BACKEND_DIR))
@@ -33,7 +33,7 @@ if str(_BACKEND_DIR) not in sys.path:
 # ---------------------------------------------------------------------------
 
 def _enrich_trades(df: pd.DataFrame) -> pd.DataFrame:
-    """Add derived columns that the revenge window features rely on."""
+    """Add derived columns expected by the loss-aversion feature extractor."""
     df = df.copy()
     df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
     df = df.sort_values("timestamp").reset_index(drop=True)
@@ -43,11 +43,12 @@ def _enrich_trades(df: pd.DataFrame) -> pd.DataFrame:
     ).fillna(0)
     df["TradeSize"] = df["quantity"] * df["entry_price"]
     df["IsWin"] = df["profit_loss"] >= 0
+    df["PnLPercent"] = df["profit_loss"] / df["TradeSize"]
     return df
 
 
 def _compute_core_window_vector(win: pd.DataFrame, eps: float = 1e-9) -> dict:
-    """Compute core features for a single window of trades."""
+    """Compute core + loss-aversion features for a single window."""
     if win.empty:
         return {}
 
@@ -66,7 +67,7 @@ def _compute_core_window_vector(win: pd.DataFrame, eps: float = 1e-9) -> dict:
     n_assets = int(win["asset"].nunique())
     top_asset_share = float(win["asset"].value_counts(normalize=True).iloc[0])
 
-    asset_changes = (win["asset"].ne(win["asset"].shift()).sum() - 1)
+    asset_changes = win["asset"].ne(win["asset"].shift()).sum() - 1
     asset_switch_rate = float(asset_changes / max(n_trades - 1, 1))
 
     sizing = win["TradeSize"]
@@ -89,12 +90,36 @@ def _compute_core_window_vector(win: pd.DataFrame, eps: float = 1e-9) -> dict:
     avg_loss_abs = float(negative_pnl.abs().mean()) if not negative_pnl.empty else 0.0
     payoff_ratio = avg_gain / (avg_loss_abs + eps)
 
-    pnl_skew_proxy = (pnl.quantile(0.9) + pnl.quantile(0.1)) / (
-        abs(pnl.quantile(0.5)) + eps
+    pnl_skew_proxy = float(
+        (pnl.quantile(0.9) + pnl.quantile(0.1)) / (abs(pnl.quantile(0.5)) + eps)
     )
 
     min_balance = float(win["balance"].min())
     dd_max = (min_balance - window_start_balance) / (window_start_balance + eps)
+
+    # ---- Loss-aversion-specific indicators ----
+    small_gain_frac = float(
+        ((win["IsWin"]) & (win["PnLPercent"] < 0.002)).mean()
+    )
+    large_loss_frac = float((win["PnLPercent"] < -0.005).mean())
+
+    loss_trades = win.loc[~win["IsWin"], "profit_loss"]
+    win_trades = win.loc[win["IsWin"], "profit_loss"]
+    loss_tail_ratio = float(
+        loss_trades.abs().quantile(0.9) / (win_trades.quantile(0.9) + eps)
+        if not loss_trades.empty and not win_trades.empty
+        else 0.0
+    )
+
+    asymmetry_index = float(
+        (avg_loss_abs - avg_gain) / (avg_loss_abs + avg_gain + eps)
+    )
+
+    gain_clipping = float(
+        positive_pnl.quantile(0.5) / (positive_pnl.quantile(0.95) + eps)
+        if not positive_pnl.empty and len(positive_pnl) >= 2
+        else 0.0
+    )
 
     return {
         "n_trades": n_trades,
@@ -116,51 +141,32 @@ def _compute_core_window_vector(win: pd.DataFrame, eps: float = 1e-9) -> dict:
         "avg_gain": avg_gain,
         "avg_loss_abs": avg_loss_abs,
         "payoff_ratio": payoff_ratio,
-        "pnl_skew_proxy": float(pnl_skew_proxy),
+        "pnl_skew_proxy": pnl_skew_proxy,
         "dd_max": dd_max,
         "window_start_balance": window_start_balance,
+        # Loss-aversion indicators
+        "small_gain_frac": small_gain_frac,
+        "large_loss_frac": large_loss_frac,
+        "loss_tail_ratio": loss_tail_ratio,
+        "asymmetry_index": asymmetry_index,
+        "gain_clipping": gain_clipping,
     }
-
-
-def _compute_revenge_vector(
-    base: pd.DataFrame, post: pd.DataFrame, eps: float = 1e-9
-) -> dict:
-    """Compute revenge-indicator features (deltas/ratios) + post-loss core."""
-    base_v = _compute_core_window_vector(base, eps)
-    post_v = _compute_core_window_vector(post, eps)
-    if not base_v or not post_v:
-        return {}
-
-    revenge_indicators = {
-        "post_trade_rate_ratio": post_v["trade_rate_per_min"]
-        / (base_v["trade_rate_per_min"] + eps),
-        "post_turnover_delta": post_v["turnover"] / (base_v["turnover"] + eps),
-        "post_sizing_mean_ratio": post_v["sizing_mean"]
-        / (base_v["sizing_mean"] + eps),
-        "post_win_rate_delta": post_v["win_rate"] - base_v["win_rate"],
-        "post_pnl_vol_ratio": post_v["pnl_std"] / (base_v["pnl_std"] + eps),
-        "post_asset_switch_delta": post_v["asset_switch_rate"]
-        - base_v["asset_switch_rate"],
-        "post_burst_frac_delta": post_v["burst_frac"] - base_v["burst_frac"],
-    }
-
-    return {**revenge_indicators, **post_v}
 
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
-BASELINE_WIN_SIZE = 15
-POSTLOSS_WIN_SIZE = 5
+WIN_SIZE = 30
+WIN_STRIDE = 10
 MIN_WIN = 3
 
 
-def score_revenge(
+def score_loss_aversion(
     df: pd.DataFrame,
     model_path: Path | str | None = None,
 ) -> dict:
-    """Score a raw trades DataFrame for revenge trading.
+    """Score a raw trades DataFrame for loss aversion.
 
     Parameters
     ----------
@@ -173,16 +179,12 @@ def score_revenge(
     Returns
     -------
     dict with keys:
-        - windows: list of {loss_trade_idx, timestamp, revenge_score}
-        - avg_score: float mean revenge score
+        - windows: list of {window_start, window_end, loss_aversion_score}
+        - avg_score: float mean loss aversion score
     """
     model_path = Path(model_path) if model_path else _DEFAULT_MODEL
 
     enriched = _enrich_trades(df)
-    loss_events = enriched[~enriched["IsWin"]]
-
-    if loss_events.empty:
-        return {"windows": [], "avg_score": 0.0}
 
     # Load model artifact
     artifact = joblib.load(model_path)
@@ -191,22 +193,22 @@ def score_revenge(
 
     samples = []
     meta = []
-    for idx in loss_events.index:
-        base_start = max(0, idx - BASELINE_WIN_SIZE)
-        post_end = min(idx + POSTLOSS_WIN_SIZE, len(enriched))
-        baseline = enriched.iloc[base_start:idx]
-        postloss = enriched.iloc[idx:post_end]
+    start = 0
+    while start + MIN_WIN < len(enriched):
+        end = min(start + WIN_SIZE, len(enriched))
+        window = enriched.iloc[start:end]
 
-        if len(baseline) > MIN_WIN and len(postloss) > MIN_WIN:
-            vec = _compute_revenge_vector(baseline, postloss)
+        if len(window) > MIN_WIN:
+            vec = _compute_core_window_vector(window)
             if vec:
                 samples.append(vec)
                 meta.append(
                     {
-                        "loss_trade_idx": int(idx),
-                        "timestamp": str(enriched.loc[idx, "timestamp"]),
+                        "window_start": str(window.iloc[0]["timestamp"]),
+                        "window_end": str(window.iloc[-1]["timestamp"]),
                     }
                 )
+        start += WIN_STRIDE
 
     if not samples:
         return {"windows": [], "avg_score": 0.0, "feature_columns": [], "feature_data": []}
@@ -224,14 +226,15 @@ def score_revenge(
         windows.append(
             {
                 **m,
-                "revenge_score": round(float(scores[i]), 4),
+                "loss_aversion_score": round(float(scores[i]), 4),
             }
         )
 
     # Build feature table for UI display
     feature_table = X_df.copy()
-    feature_table.insert(0, "timestamp", [m["timestamp"] for m in meta])
-    feature_table["revenge_prob"] = scores
+    feature_table.insert(0, "window_start", [m["window_start"] for m in meta])
+    feature_table.insert(1, "window_end", [m["window_end"] for m in meta])
+    feature_table["loss_aversion_prob"] = scores
     feature_records = feature_table.round(4).fillna("NaN").to_dict(orient="records")
 
     return {

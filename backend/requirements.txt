@@ -8,3 +8,7 @@ transformers
 numpy
 scikit-learn
 tqdm
+pandas
+joblib
+backboard-sdk
+duckdb

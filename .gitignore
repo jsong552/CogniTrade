@@ -28,3 +28,6 @@ venv
 
 # Models
 /backend/models/trading_bias_detector/*
+
+# Large generated training data (exceeds GitHub 100MB limit)
+**/data_preprocessing_training.csv

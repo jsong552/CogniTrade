@@ -1,19 +1,25 @@
 import base64
+import io
 import json
 import os
 import sys
 from threading import Thread
 
-from flask import Flask, jsonify, request
+import pandas as pd
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 from flask_sock import Sock
 from dotenv import load_dotenv
 from websockets.exceptions import ConnectionClosed
 from websockets.sync.client import connect as ws_connect
 
-# Add the backend directory to path for importing the bias detector
+# Add the backend directory to path for importing modules
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from journal_model_training_script.train_bias_detector import TradingBiasDetector
+from models.overtrading_model.predict_overtrading import score_overtrading
+from models.revenge_trading_model.revenge_inference import score_revenge
+from models.loss_aversion_trading_model.loss_aversion_inference import score_loss_aversion
+from agent import create_analysis_session, agent_chat
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -168,6 +174,181 @@ def analyze_journal():
         return jsonify({
             'error': f'Analysis failed: {str(e)}'
         }), 500
+
+# ---------------------------------------------------------------------------
+# Analyze trades endpoint — CSV upload → overtrading + revenge + loss aversion
+# ---------------------------------------------------------------------------
+
+_REQUIRED_COLS = {
+    'timestamp', 'asset', 'side', 'quantity',
+    'entry_price', 'exit_price', 'profit_loss', 'balance',
+}
+
+@app.route('/analyze_trades', methods=['POST'])
+def analyze_trades():
+    """
+    Accept a CSV of trades and return overtrading, revenge-trading,
+    and loss-aversion scores.
+
+    Request: multipart/form-data with field ``file`` (CSV).
+    Response JSON::
+
+        {
+            "success": true,
+            "overtrading":    { "windows": [...], "avg_score": 0.72 },
+            "revenge":        { "windows": [...], "avg_score": 0.45 },
+            "loss_aversion":  { "windows": [...], "avg_score": 0.31 }
+        }
+    """
+    try:
+        if 'file' not in request.files:
+            return jsonify({
+                'error': 'Missing CSV file (field: file)',
+                'usage': 'POST multipart/form-data with a CSV file field named "file".',
+            }), 400
+
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'Empty filename'}), 400
+
+        # Read CSV into DataFrame
+        try:
+            raw = file.read().decode('utf-8')
+            df = pd.read_csv(io.StringIO(raw))
+        except Exception as e:
+            return jsonify({'error': f'Failed to parse CSV: {e}'}), 400
+
+        # Validate required columns
+        missing = _REQUIRED_COLS - set(df.columns)
+        if missing:
+            return jsonify({
+                'error': f'CSV is missing required columns: {sorted(missing)}',
+                'required': sorted(_REQUIRED_COLS),
+            }), 400
+
+        # Run all three scorers
+        ot_result = score_overtrading(df)
+        rv_result = score_revenge(df)
+        la_result = score_loss_aversion(df)
+
+        return jsonify({
+            'success': True,
+            'overtrading': ot_result,
+            'revenge': rv_result,
+            'loss_aversion': la_result,
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Analysis failed: {str(e)}'}), 500
+
+
+# ---------------------------------------------------------------------------
+# Agent endpoints — LLM-powered expert analysis + follow-up chat
+# ---------------------------------------------------------------------------
+
+@app.route('/agent/analyze', methods=['POST'])
+def agent_analyze():
+    """Upload a CSV, run the three bias models, then generate an LLM expert
+    report via Backboard AI.
+
+    Request: multipart/form-data with field ``file`` (CSV).
+    Response JSON::
+
+        {
+            "success": true,
+            "thread_id": "...",
+            "report": "... markdown ...",
+            "scores": {
+                "overtrading":   { "windows": [...], "avg_score": 0.72 },
+                "revenge":       { "windows": [...], "avg_score": 0.45 },
+                "loss_aversion": { "windows": [...], "avg_score": 0.31 }
+            }
+        }
+    """
+    try:
+        # ---- validate input ------------------------------------------------
+        if 'file' not in request.files:
+            return jsonify({
+                'error': 'Missing CSV file (field: file)',
+            }), 400
+
+        file = request.files['file']
+        if not file.filename:
+            return jsonify({'error': 'Empty filename'}), 400
+
+        try:
+            raw = file.read().decode('utf-8')
+            df = pd.read_csv(io.StringIO(raw))
+        except Exception as e:
+            return jsonify({'error': f'Failed to parse CSV: {e}'}), 400
+
+        missing = _REQUIRED_COLS - set(df.columns)
+        if missing:
+            return jsonify({
+                'error': f'CSV is missing required columns: {sorted(missing)}',
+                'required': sorted(_REQUIRED_COLS),
+            }), 400
+
+        # ---- run the three scoring models ----------------------------------
+        scores = {
+            'overtrading': score_overtrading(df),
+            'revenge': score_revenge(df),
+            'loss_aversion': score_loss_aversion(df),
+        }
+
+        # ---- generate LLM expert report via Backboard ----------------------
+        session = create_analysis_session(df, scores)
+
+        return jsonify({
+            'success': True,
+            'thread_id': session['thread_id'],
+            'report': session['report'],
+            'scores': scores,
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Agent analysis failed: {str(e)}'}), 500
+
+
+@app.route('/agent/chat', methods=['POST'])
+def agent_chat_endpoint():
+    """Send a follow-up message to the agent on an existing thread.
+
+    Responds with **Server-Sent Events** so the frontend can show a
+    streaming-style UX.  Events:
+
+    - ``{"type": "start"}``          -- agent is working
+    - ``{"type": "content", "text": "..."}``  -- agent response text
+    - ``{"type": "done"}``           -- finished
+    - ``{"type": "error", "message": "..."}`` -- something went wrong
+    """
+    data = request.get_json(silent=True) or {}
+    thread_id = data.get('thread_id', '')
+    message = data.get('message', '').strip()
+
+    if not thread_id or not message:
+        return jsonify({
+            'error': 'Both thread_id and message are required.',
+        }), 400
+
+    def _generate():
+        yield f"data: {json.dumps({'type': 'start'})}\n\n"
+        try:
+            text = agent_chat(thread_id, message)
+            yield f"data: {json.dumps({'type': 'content', 'text': text})}\n\n"
+        except Exception as exc:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(exc)})}\n\n"
+        yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+    return Response(
+        _generate(),
+        mimetype='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'X-Accel-Buffering': 'no',
+        },
+    )
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

@@ -227,7 +227,11 @@ def generate_dataset(
     start_balance: float,
     start_time: datetime,
     base_prices: Dict[str, float],
+    seed: int | None = None,
 ) -> pd.DataFrame:
+    if seed is not None:
+        random.seed(seed)
+        np.random.seed(seed)
     rows: List[Trade] = []
     balance = float(start_balance)
     t = start_time
@@ -359,20 +363,26 @@ def main() -> None:
     }
 
     # Example datasets: each is one possible mix of observable parameters
+    # Format: (name, profile, n_trades, seed)
     specs = [
-        ("overtrading_example", example_profile_overtrading(), 4500),
-        ("loss_averse_example", example_profile_loss_averse(), 1400),
-        ("revenge_example", example_profile_revenge(), 2200),
-        ("balanced_example", example_profile_balanced(), 1200),
+        ("overtrading_example", example_profile_overtrading(), 4500, 42),
+        ("loss_averse_example", example_profile_loss_averse(), 1400, 42),
+        ("revenge_example", example_profile_revenge(), 2200, 42),
+        ("balanced_example", example_profile_balanced(), 1200, 42),
+        # Additional calm datasets to balance overtrading class
+        ("calm_1_example", example_profile_balanced(), 4500, 100),
+        ("calm_2_example", example_profile_balanced(), 4500, 200),
+        ("calm_3_example", example_profile_balanced(), 4500, 300),
     ]
 
-    for name, profile, n in specs:
+    for name, profile, n, seed in specs:
         df = generate_dataset(
             profile=profile,
             n_trades=n,
             start_balance=START_BALANCE,
             start_time=START_TIME_UTC,
             base_prices=base_prices,
+            seed=seed,
         )
         out = f"{name}.csv"
         df.to_csv(out, index=False)
