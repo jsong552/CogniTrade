@@ -121,7 +121,7 @@ const AnalysisPage = () => {
           </div>
 
           {/* Right column: Results */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-2 space-y-5 min-w-0">
             {showAnalysis ? (
               <>
                 {/* Score cards */}

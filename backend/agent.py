@@ -159,11 +159,14 @@ model-derived probability scores with direct evidence from raw trade records.
 ## Capabilities
 - Model scores for three biases (overtrading, revenge trading, loss aversion) \
 are provided as context when the conversation starts.
-- You can run SQL against the trader's uploaded data via the `query_trade_data` \
-tool. The table is called **trades** with columns: `timestamp`, `asset`, \
-`side`, `quantity`, `entry_price`, `exit_price`, `profit_loss`, `balance`, \
-`notional`.
-- You can call `get_trade_summary` for high-level statistics.
+- You can run SQL against the trader's data via the `query_trade_data` tool. \
+**Tables:** (1) **trades** — raw trade history: `timestamp`, `asset`, `side`, \
+`quantity`, `entry_price`, `exit_price`, `profit_loss`, `balance`, `notional`. \
+(2) **overtrading_features**, **revenge_features**, **loss_aversion_features** — \
+ML preprocessed features and probability columns (e.g. `overtrading_prob`, \
+`revenge_prob`, `loss_aversion_prob`). Use these to find high-risk windows or \
+correlate with trade outcomes.
+- You can call `get_trade_summary` for high-level statistics on **trades**.
 
 ## Initial-report structure
 When generating the first analysis report, follow this outline:
@@ -192,11 +195,12 @@ TOOLS = [
         "function": {
             "name": "query_trade_data",
             "description": (
-                "Run a read-only SQL query against the trader's uploaded "
-                "trade history. The table is called 'trades' with columns: "
-                "timestamp, asset, side, quantity, entry_price, exit_price, "
-                "profit_loss, balance, notional. Returns a text table of "
-                "results (max 50 rows)."
+                "Run a read-only SQL query against the trader's data. Tables: "
+                "'trades' (timestamp, asset, side, quantity, entry_price, exit_price, "
+                "profit_loss, balance, notional); 'overtrading_features', "
+                "'revenge_features', 'loss_aversion_features' (ML feature rows with "
+                "probability columns e.g. overtrading_prob, revenge_prob, loss_aversion_prob). "
+                "Returns a text table of results (max 50 rows)."
             ),
             "parameters": {
                 "type": "object",
@@ -257,8 +261,13 @@ def _session_dir(tid: str) -> str:
     return os.path.join(SESSION_STORE_DIR, safe)
 
 
-def _persist_session(tid: str, session: Session, df: pd.DataFrame | None = None) -> None:
-    """Save session state to disk (CSV + meta.json). Use df only when creating; updates only meta."""
+def _persist_session(
+    tid: str,
+    session: Session,
+    df: pd.DataFrame | None = None,
+    scores: dict | None = None,
+) -> None:
+    """Save session state to disk (trades CSV, optional ML feature CSVs, meta.json)."""
     try:
         d = _session_dir(tid)
         os.makedirs(d, exist_ok=True)
@@ -268,6 +277,22 @@ def _persist_session(tid: str, session: Session, df: pd.DataFrame | None = None)
             "user_message_history": session["user_message_history"],
             "investigation_history": session["investigation_history"],
         }
+        if scores:
+            for name in ("overtrading", "revenge", "loss_aversion"):
+                model = scores.get(name)
+                if not model or not isinstance(model, dict):
+                    continue
+                fd = model.get("feature_data")
+                fc = model.get("feature_columns")
+                if not fd or not fc:
+                    continue
+                try:
+                    rows = [[row.get(c) for c in fc] for row in fd]
+                    ml_df = pd.DataFrame(rows, columns=fc)
+                    ml_df.to_csv(os.path.join(d, f"{name}_features.csv"), index=False)
+                    meta[f"{name}_feature_columns"] = fc
+                except Exception as e:
+                    logger.warning("Could not persist %s features: %s", name, e)
         with open(os.path.join(d, "meta.json"), "w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2, default=str)
     except Exception as e:
@@ -275,7 +300,7 @@ def _persist_session(tid: str, session: Session, df: pd.DataFrame | None = None)
 
 
 def _load_session_from_disk(tid: str) -> Session | None:
-    """Load session from disk if it exists. Recreates db_conn from saved CSV."""
+    """Load session from disk if it exists. Recreates db_conn from saved trades and ML feature CSVs."""
     try:
         d = _session_dir(tid)
         meta_path = os.path.join(d, "meta.json")
@@ -285,7 +310,20 @@ def _load_session_from_disk(tid: str) -> Session | None:
         with open(meta_path, "r", encoding="utf-8") as f:
             meta = json.load(f)
         df = pd.read_csv(csv_path)
-        db_conn = _load_into_duckdb(df)
+        scores: dict | None = None
+        for name in ("overtrading", "revenge", "loss_aversion"):
+            ml_path = os.path.join(d, f"{name}_features.csv")
+            fc = meta.get(f"{name}_feature_columns")
+            if os.path.isfile(ml_path) and fc:
+                try:
+                    ml_df = pd.read_csv(ml_path)
+                    fd = ml_df.to_dict(orient="records")
+                    if scores is None:
+                        scores = {}
+                    scores[name] = {"feature_data": fd, "feature_columns": list(ml_df.columns)}
+                except Exception as e:
+                    logger.warning("Could not load %s features: %s", name, e)
+        db_conn = _load_into_duckdb(df, scores=scores)
         return {
             "db_conn": db_conn,
             "user_message_history": meta.get("user_message_history", []),
@@ -301,8 +339,11 @@ def _load_session_from_disk(tid: str) -> Session | None:
 # ---------------------------------------------------------------------------
 
 
-def _load_into_duckdb(df: pd.DataFrame) -> duckdb.DuckDBPyConnection:
-    """Create an in-memory DuckDB connection with a ``trades`` table."""
+def _load_into_duckdb(
+    df: pd.DataFrame,
+    scores: dict | None = None,
+) -> duckdb.DuckDBPyConnection:
+    """Create an in-memory DuckDB connection with a ``trades`` table and optional ML feature tables."""
     df = df.copy()
     df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True).astype(str)
     if "notional" not in df.columns:
@@ -311,6 +352,27 @@ def _load_into_duckdb(df: pd.DataFrame) -> duckdb.DuckDBPyConnection:
     conn.register("_trades_df", df)
     conn.execute("CREATE TABLE trades AS SELECT * FROM _trades_df")
     conn.unregister("_trades_df")
+
+    if scores:
+        for name in ("overtrading", "revenge", "loss_aversion"):
+            model = scores.get(name)
+            if not model or not isinstance(model, dict):
+                continue
+            fd = model.get("feature_data")
+            fc = model.get("feature_columns")
+            if not fd or not fc:
+                continue
+            try:
+                rows = [[row.get(c) for c in fc] for row in fd]
+                ml_df = pd.DataFrame(rows, columns=fc)
+            except Exception as e:
+                logger.warning("Skipping ML table %s: %s", name, e)
+                continue
+            table_name = f"{name}_features"
+            conn.register("_ml_df", ml_df)
+            conn.execute(f'CREATE TABLE "{table_name}" AS SELECT * FROM _ml_df')
+            conn.unregister("_ml_df")
+
     return conn
 
 
@@ -926,7 +988,7 @@ async def _create_analysis_session(
         tid = getattr(thread, "thread_id", getattr(thread, "id", ""))
     tid = str(tid) if tid else ""
 
-    db_conn = _load_into_duckdb(df)
+    db_conn = _load_into_duckdb(df, scores=scores)
 
     # Initialize per-thread histories
     session: Session = {
@@ -953,7 +1015,7 @@ async def _create_analysis_session(
             session,
             task_name="Initial analysis report",
         )
-        _persist_session(tid, session, df)
+        _persist_session(tid, session, df, scores)
         return {"thread_id": tid, "report": report}
     finally:
         _active_thread_id.reset(token)

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Upload, FileText, X, Loader2, CheckCircle2, BarChart3 } from 'lucide-react';
+import { Upload, FileText, X, Loader2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -457,39 +457,6 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <div className="glass-card p-5">
-        <h3 className="text-sm font-semibold mb-2">Analyze Account Trades</h3>
-        <p className="text-xs text-muted-foreground mb-3">
-          Run behavior analysis on trades from your paper trading account.
-        </p>
-
-        {/* Show trade stats */}
-        <div className="flex items-center gap-2 mb-4 p-2 bg-muted/50 rounded-lg">
-          <BarChart3 className="h-4 w-4 text-primary" />
-          <span className="text-xs text-muted-foreground">
-            {roundTripCount > 0
-              ? `${roundTripCount} round-trip trade${roundTripCount !== 1 ? 's' : ''} available for analysis`
-              : 'No complete trades yet. Buy and sell to create round-trips!'}
-          </span>
-        </div>
-
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={handleAnalyzeAccount}
-          disabled={analyzingAccount || roundTripCount < 2}
-        >
-          {analyzingAccount ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Analyzing Account Trades...
-            </>
-          ) : (
-            'Analyze My Trades'
-          )}
-        </Button>
-      </div>
     </div>
   );
 }
