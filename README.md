@@ -326,3 +326,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## GRADIUM PITCH
 
+
+https://github.com/user-attachments/assets/d8af92d0-2e74-49b3-87c9-53291b091282
+
+
