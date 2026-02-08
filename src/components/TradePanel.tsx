@@ -27,7 +27,7 @@ type OrderType = 'market' | 'limit' | 'stop-loss' | 'take-profit';
 type TradeType = 'buy' | 'sell';
 
 export function TradePanel({ ticker }: TradePanelProps) {
-  const { balance, positions, placeMarketOrder, placeLimitOrder } = useTradingStore();
+  const { balance, positions, placeMarketOrder, placeLimitOrder, updateOrderNote } = useTradingStore();
 
   const [tradeType, setTradeType] = useState<TradeType>('buy');
   const [orderType, setOrderType] = useState<OrderType>('market');
@@ -40,6 +40,7 @@ export function TradePanel({ ticker }: TradePanelProps) {
   const [transcript, setTranscript] = useState('');
   const [transcribeStatus, setTranscribeStatus] = useState<'idle' | 'connecting' | 'recording' | 'processing' | 'error'>('idle');
   const [isRecording, setIsRecording] = useState(false);
+  const [noteTargetId, setNoteTargetId] = useState<string | null>(null);
 
   const wsRef = useRef<WebSocket | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
@@ -138,6 +139,11 @@ export function TradePanel({ ticker }: TradePanelProps) {
         description: tradeType === 'buy' ? 'Insufficient balance' : 'Insufficient shares'
       });
     } else {
+      const state = useTradingStore.getState();
+      const latestOrderId = orderType === 'market'
+        ? state.trades[0]?.id
+        : state.pendingOrders[0]?.id;
+      setNoteTargetId(latestOrderId ?? null);
       // Reset form
       setQuantity('1');
       setLimitPrice('');
@@ -148,6 +154,15 @@ export function TradePanel({ ticker }: TradePanelProps) {
       setTranscribeStatus('idle');
       setIsThoughtModalOpen(true);
     }
+  };
+
+  const handleSaveNote = () => {
+    if (noteTargetId && (thoughts.trim() || transcript.trim())) {
+      updateOrderNote(noteTargetId, thoughts.trim(), transcript.trim());
+      toast.success('Note saved to trade log');
+    }
+    setIsThoughtModalOpen(false);
+    setNoteTargetId(null);
   };
 
   const arrayBufferToBase64 = (buffer: ArrayBuffer) => {
@@ -472,7 +487,15 @@ export function TradePanel({ ticker }: TradePanelProps) {
         }
       </Button>
 
-      <Dialog open={isThoughtModalOpen} onOpenChange={setIsThoughtModalOpen}>
+      <Dialog
+        open={isThoughtModalOpen}
+        onOpenChange={(open) => {
+          setIsThoughtModalOpen(open);
+          if (!open) {
+            setNoteTargetId(null);
+          }
+        }}
+      >
         <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>Record your thought process</DialogTitle>
@@ -540,10 +563,16 @@ export function TradePanel({ ticker }: TradePanelProps) {
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setIsThoughtModalOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsThoughtModalOpen(false);
+                setNoteTargetId(null);
+              }}
+            >
               Skip for now
             </Button>
-            <Button onClick={() => setIsThoughtModalOpen(false)}>
+            <Button onClick={handleSaveNote}>
               Save note
             </Button>
           </DialogFooter>

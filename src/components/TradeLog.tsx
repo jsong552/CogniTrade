@@ -1,12 +1,90 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useTradingStore, useAllOrders } from '@/lib/tradingStore';
 import { Button } from '@/components/ui/button';
-import { Download, X, Clock, Check, Ban } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Download, X, Clock, Check, Ban, FileText, AudioLines, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
 export function TradeLog() {
   const { cancelPendingOrder, trades } = useTradingStore();
   const allOrders = useAllOrders();
+  const [activeLog, setActiveLog] = useState<any | null>(null);
+  const [analysisLoading, setAnalysisLoading] = useState(false);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [analysisData, setAnalysisData] = useState<Record<string, string> | null>(null);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001';
+
+  const analysisEntries = useMemo(() => {
+    if (!analysisData) return [];
+    const entries = Object.entries(analysisData).map(([key, value]) => ({
+      key,
+      label: key.replace(/_/g, ' '),
+      value,
+      numeric: Number(String(value).replace('%', '')) || 0,
+    }));
+    return entries.sort((a, b) => b.numeric - a.numeric);
+  }, [analysisData]);
+
+  useEffect(() => {
+    if (!activeLog) return;
+    const text = (activeLog.transcript || activeLog.note || '').trim();
+
+    setAnalysisData(null);
+    setAnalysisError(null);
+
+    if (!text) return;
+
+    const controller = new AbortController();
+    const load = async () => {
+      setAnalysisLoading(true);
+      try {
+        const response = await fetch(`${backendUrl}/analyze_journal`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          const errorPayload = await response.json().catch(() => ({}));
+          throw new Error(errorPayload.error || 'Failed to analyze journal');
+        }
+
+        const payload = await response.json();
+        const percentages = payload?.percentages as Record<string, string> | undefined;
+        if (percentages && Object.keys(percentages).length > 0) {
+          setAnalysisData(percentages);
+        } else if (payload?.biases) {
+          const fallback: Record<string, string> = {};
+          Object.entries(payload.biases as Record<string, number>).forEach(([key, value]) => {
+            fallback[key] = `${Math.round(value * 100)}%`;
+          });
+          setAnalysisData(fallback);
+        } else {
+          setAnalysisData(null);
+        }
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setAnalysisError(error instanceof Error ? error.message : 'Unable to analyze journal');
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setAnalysisLoading(false);
+        }
+      }
+    };
+
+    load();
+
+    return () => controller.abort();
+  }, [activeLog, backendUrl]);
 
   const escapeCsvField = (value: string) => {
     if (value.includes('"')) {
@@ -97,6 +175,7 @@ export function TradeLog() {
           {allOrders.map((order, i) => {
             const isPending = order.isPending || order.status === 'pending';
             const isCancelled = order.status === 'cancelled';
+            const hasNote = Boolean(order.note || order.transcript);
 
             return (
               <motion.div
@@ -110,6 +189,15 @@ export function TradeLog() {
                     ? 'bg-muted/30 opacity-60'
                     : 'bg-muted/50 hover:bg-muted'
                   }`}
+                role="button"
+                tabIndex={0}
+                onClick={() => setActiveLog(order)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setActiveLog(order);
+                  }
+                }}
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-1.5 h-8 rounded-full ${isPending
@@ -139,6 +227,12 @@ export function TradeLog() {
                         {getStatusIcon(order.status, order.isPending)}
                         {getStatusLabel(order.status, order.isPending)}
                       </span>
+                      {hasNote && (
+                        <span className="flex items-center gap-1 text-xs text-primary">
+                          <FileText className="h-3 w-3" />
+                          Note
+                        </span>
+                      )}
                     </div>
                     <div className="text-xs text-muted-foreground mt-0.5">
                       {new Date(order.timestamp).toLocaleString()}
@@ -161,7 +255,10 @@ export function TradeLog() {
                   </div>
                   {isPending && (
                     <button
-                      onClick={() => handleCancel(order.id, order.ticker)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleCancel(order.id, order.ticker);
+                      }}
                       className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded transition-colors"
                       title="Cancel order"
                     >
@@ -174,6 +271,115 @@ export function TradeLog() {
           })}
         </div>
       )}
+
+      <Dialog open={Boolean(activeLog)} onOpenChange={(open) => !open && setActiveLog(null)}>
+        <DialogContent className="max-w-6xl w-full">
+          <DialogHeader>
+            <DialogTitle>Trade Log Details</DialogTitle>
+            <DialogDescription>
+              Review the recorded note and transcription for this trade.
+            </DialogDescription>
+          </DialogHeader>
+
+          {activeLog && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4 text-xs text-muted-foreground">
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Ticker</div>
+                  <div className="text-sm text-foreground font-semibold">{activeLog.ticker}</div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Order</div>
+                  <div className="text-sm text-foreground font-semibold">
+                    {activeLog.type?.toUpperCase()} · {activeLog.orderType}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Quantity</div>
+                  <div className="text-sm text-foreground font-semibold">{activeLog.quantity}</div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Price</div>
+                  <div className="text-sm text-foreground font-semibold">${activeLog.price?.toFixed(2)}</div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Total</div>
+                  <div className="text-sm text-foreground font-semibold">${activeLog.total?.toFixed(2)}</div>
+                </div>
+                <div>
+                  <div className="text-[11px] uppercase tracking-wide">Time</div>
+                  <div className="text-sm text-foreground font-semibold">
+                    {new Date(activeLog.timestamp).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold">
+                      <AudioLines className="h-4 w-4" />
+                      Transcript
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground whitespace-pre-wrap">
+                      {activeLog.transcript || 'No transcript saved for this log.'}
+                    </p>
+                  </div>
+
+                  <div className="rounded-lg border border-border/60 bg-muted/40 p-4">
+                    <div className="flex items-center gap-2 text-sm font-semibold">
+                      <FileText className="h-4 w-4" />
+                      Notes
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground whitespace-pre-wrap">
+                      {activeLog.note || 'No notes saved for this log.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-border/60 bg-muted/30 p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm font-semibold">
+                      <Sparkles className="h-4 w-4" />
+                      Behavior Analysis
+                    </div>
+                    {analysisLoading && (
+                      <span className="text-xs text-muted-foreground">Analyzing...</span>
+                    )}
+                  </div>
+
+                  {analysisError && (
+                    <div className="text-xs text-loss">{analysisError}</div>
+                  )}
+
+                  {!analysisLoading && !analysisError && analysisEntries.length === 0 && (
+                    <div className="text-xs text-muted-foreground">
+                      Add a transcript or note to see behavior probabilities.
+                    </div>
+                  )}
+
+                  <div className="space-y-3">
+                    {analysisEntries.map((entry) => (
+                      <div key={entry.key} className="space-y-1">
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span className="text-foreground font-medium">{entry.label}</span>
+                          <span>{entry.value}</span>
+                        </div>
+                        <div className="h-2 rounded-full bg-muted overflow-hidden">
+                          <div
+                            className="h-full bg-primary/80"
+                            style={{ width: `${Math.min(entry.numeric, 100)}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -21,6 +21,8 @@ export interface PendingOrder {
   status: 'pending' | 'filled' | 'cancelled';
   stopLoss?: number;
   takeProfit?: number;
+  note?: string;
+  transcript?: string;
 }
 
 export interface FilledTrade {
@@ -37,6 +39,8 @@ export interface FilledTrade {
   stopLoss?: number;
   takeProfit?: number;
   filledFrom?: string; // ID of the pending order if it was filled from one
+  note?: string;
+  transcript?: string;
 }
 
 export interface Position {
@@ -92,6 +96,7 @@ interface TradingActions {
   }) => boolean;
 
   cancelPendingOrder: (orderId: string) => void;
+  updateOrderNote: (orderId: string, note: string, transcript: string) => void;
 
   // Price monitoring - called every 5 seconds to check pending orders
   updatePrice: (symbol: string, price: number) => void;
@@ -324,6 +329,17 @@ export const useTradingStore = create<TradingState & TradingActions>()(
         });
       },
 
+      updateOrderNote: (orderId: string, note: string, transcript: string) => {
+        set((state) => ({
+          trades: state.trades.map(trade =>
+            trade.id === orderId ? { ...trade, note, transcript } : trade
+          ),
+          pendingOrders: state.pendingOrders.map(order =>
+            order.id === orderId ? { ...order, note, transcript } : order
+          ),
+        }));
+      },
+
       updatePrice: (symbol: string, price: number) => {
         const upperSymbol = symbol.toUpperCase();
         set((state) => {
@@ -426,6 +442,8 @@ export const useTradingStore = create<TradingState & TradingActions>()(
               stopLoss: order.stopLoss,
               takeProfit: order.takeProfit,
               filledFrom: order.id,
+              note: order.note,
+              transcript: order.transcript,
             };
             newTrades.push(trade);
 
@@ -543,6 +561,8 @@ export function useAllOrders() {
         isPending: true,
         stopLoss: o.stopLoss,
         takeProfit: o.takeProfit,
+        note: o.note,
+        transcript: o.transcript,
       })),
   ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
