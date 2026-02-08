@@ -2,15 +2,13 @@ import pandas as pd
 from collections import deque
 from datetime import timedelta
 
-file_names = ['calm_trader', 'loss_averse_trader', 'overtrader', 'revenge_trader']
-file_names = ['balanced_example', 'loss_averse_example', 'overtrading_example', 'revenge_example']
-keep_cols = ['timestamp', 'asset', 'side', 'quantity', 'entry_price', 'exit_price', 'profit_loss', 'balance']
 
 def extract_derived_features(f):
     # ----------------------------
     # Preprocess data
     # ----------------------------
     # df = pd.read_csv(f'trading_datasets\\{f}.csv', usecols=keep_cols)
+    keep_cols = ['timestamp', 'asset', 'side', 'quantity', 'entry_price', 'exit_price', 'profit_loss', 'balance']
     df = pd.read_csv(f, usecols=keep_cols)
 
     df.dropna(subset=['timestamp'])
@@ -67,51 +65,55 @@ def extract_derived_features(f):
 
     return df
 
-for f in file_names:
-    df = extract_derived_features(f'mock_behaviours\\{f}.csv')
-    # ----------------------------
-    # Save enriched dataset
-    # ----------------------------
-    df.to_csv(f'{f}_enriched.csv', index=False)
+if __name__ == '__main__':
+    file_names = ['calm_trader', 'loss_averse_trader', 'overtrader', 'revenge_trader']
+    file_names = ['balanced_example', 'loss_averse_example', 'overtrading_example', 'revenge_example']
 
-    print(df)
+    for f in file_names:
+        df = extract_derived_features(f'mock_behaviours\\{f}.csv')
+        # ----------------------------
+        # Save enriched dataset
+        # ----------------------------
+        df.to_csv(f'{f}_enriched.csv', index=False)
 
-    print('Analysis complete.')
-    print(f'Enriched dataset written to {f}_enriched.csv')
+        print(df)
 
-
-    '''
-    overtrade_flag = trades_in_last_15m > user_baseline
-    
-    overtrading_score = trades_per_day / median_trades_per_day
-    overtrading = score > 1.5
-
-    “You trade 2.3× more frequently than your typical baseline, often clustering trades within minutes.”
-    '''
-    # df['overtrade_flag_15m'] = df['TradesLast15Min'] > df['TradesLast15Min'].median() * 1.5
-    # df['size_overtrade_flag'] = (df['TradeSizePctBalance'] > 0.1) | (df['TradeSizePctBalance'] < 0.1)
+        print('Analysis complete.')
+        print(f'Enriched dataset written to {f}_enriched.csv')
 
 
-    # median_trades_per_day = (df.groupby('TradeDate').size().median())
+        '''
+        overtrade_flag = trades_in_last_15m > user_baseline
+        
+        overtrading_score = trades_per_day / median_trades_per_day
+        overtrading = score > 1.5
 
-    
-    '''
-    loss_aversion_flag = profit_loss < 0 AND abs(profit_loss) > avg_gain
+        “You trade 2.3× more frequently than your typical baseline, often clustering trades within minutes.”
+        '''
+        # df['overtrade_flag_15m'] = df['TradesLast15Min'] > df['TradesLast15Min'].median() * 1.5
+        # df['size_overtrade_flag'] = (df['TradeSizePctBalance'] > 0.1) | (df['TradeSizePctBalance'] < 0.1)
 
-    loss_aversion = loss_gain_ratio > 1.3
 
-    “Your losing trades are, on average, 1.6× larger than your winning trades.”
-    '''
+        # median_trades_per_day = (df.groupby('TradeDate').size().median())
 
-    '''
-    revenge_trade_flag = previous_trade_pnl < -threshold AND minutes_since_last_trade < 15  AND trade_size_pct_balance increased
+        
+        '''
+        loss_aversion_flag = profit_loss < 0 AND abs(profit_loss) > avg_gain
 
-    revenge_trade_rate = revenge_trades / total_trades
-    revenge_trading = rate > 0.2
+        loss_aversion = loss_gain_ratio > 1.3
 
-    “42% of your trades placed within 10 minutes of a loss were unprofitable.”
-    '''
+        “Your losing trades are, on average, 1.6× larger than your winning trades.”
+        '''
 
-    # print(median_trades_per_day)
+        '''
+        revenge_trade_flag = previous_trade_pnl < -threshold AND minutes_since_last_trade < 15  AND trade_size_pct_balance increased
 
-    
+        revenge_trade_rate = revenge_trades / total_trades
+        revenge_trading = rate > 0.2
+
+        “42% of your trades placed within 10 minutes of a loss were unprofitable.”
+        '''
+
+        # print(median_trades_per_day)
+
+        
