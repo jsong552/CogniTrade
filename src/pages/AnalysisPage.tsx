@@ -8,6 +8,7 @@ import { BehaviorAnalysis as BehaviorType } from '@/lib/mockData';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import { FileText } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 /** Map the three model scores into the BehaviorAnalysis card format. */
 function toBehaviorCards(scores: BiasScores): BehaviorType[] {
@@ -50,13 +51,15 @@ const AnalysisPage = () => {
   const [report, setReport] = useState<string | null>(null);
 
   const handleAnalyze = (source: 'uploaded' | 'account', result?: AgentAnalysisResult) => {
-    if (source === 'uploaded' && result) {
+    if (result) {
+      // Both uploaded and account trades use the same display when we have results
       setAnalysisData(toBehaviorCards(result.scores));
       setScores(result.scores);
       setThreadId(result.thread_id);
       setReport(result.report);
       setShowAnalysis(true);
     } else {
+      // Fallback for when no analysis result is available
       toast.info(`Analyzing ${source === 'uploaded' ? 'uploaded' : 'account'} trades... (using example data)`);
       setAnalysisData(undefined);
       setScores(null);
@@ -106,8 +109,8 @@ const AnalysisPage = () => {
                       <FileText className="h-4 w-4 text-primary" />
                       <h3 className="text-sm font-semibold">Expert Analysis Report</h3>
                     </div>
-                    <div className="text-sm text-foreground/90 whitespace-pre-wrap leading-relaxed">
-                      {report}
+                    <div className="prose prose-sm prose-invert max-w-none text-foreground/90 [&_h1]:text-lg [&_h1]:font-bold [&_h1]:mt-4 [&_h1]:mb-2 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:mt-3 [&_h2]:mb-2 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-2 [&_h3]:mb-1 [&_p]:mb-2 [&_ul]:mb-2 [&_ul]:pl-4 [&_ol]:mb-2 [&_ol]:pl-4 [&_li]:mb-1 [&_strong]:text-primary [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-xs">
+                      <ReactMarkdown>{report}</ReactMarkdown>
                     </div>
                   </motion.div>
                 )}

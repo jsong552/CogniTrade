@@ -113,12 +113,350 @@ interface TradingActions {
 
 const INITIAL_BALANCE = 100000;
 
+// Demo trades that demonstrate Loss Aversion behavior pattern:
+// - Selling winners too quickly (taking small 1-3% profits)
+// - Holding losers too long (letting losses grow to 8-15%)
+// This is for demo purposes to show the AI analysis capabilities
+const generateDemoTrades = (): FilledTrade[] => {
+  const now = new Date();
+  const trades: FilledTrade[] = [];
+
+  // Helper to create a date X days ago
+  const daysAgo = (days: number) => {
+    const d = new Date(now);
+    d.setDate(d.getDate() - days);
+    return d.toISOString();
+  };
+
+  // Loss Aversion Pattern Trades:
+  // Pattern 1: Quick profit-taking on winners (selling after small gains)
+  // Pattern 2: Holding losers too long (large losses before selling)
+
+  // Trade 1-2: AAPL - Bought, sold quickly for tiny 1.5% profit
+  trades.push({
+    id: 'demo-001',
+    ticker: 'AAPL',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 50,
+    price: 178.50,
+    total: 8925,
+    timestamp: daysAgo(45),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-002',
+    ticker: 'AAPL',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 50,
+    price: 181.20, // +1.5% profit - sold too early
+    total: 9060,
+    timestamp: daysAgo(43),
+    status: 'filled',
+  });
+
+  // Trade 3-4: NVDA - Held through 12% loss before selling
+  trades.push({
+    id: 'demo-003',
+    ticker: 'NVDA',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 30,
+    price: 485.00,
+    total: 14550,
+    timestamp: daysAgo(42),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-004',
+    ticker: 'NVDA',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 30,
+    price: 426.80, // -12% loss - held too long
+    total: 12804,
+    timestamp: daysAgo(35),
+    status: 'filled',
+  });
+
+  // Trade 5-6: MSFT - Quick 2% profit exit
+  trades.push({
+    id: 'demo-005',
+    ticker: 'MSFT',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 40,
+    price: 372.00,
+    total: 14880,
+    timestamp: daysAgo(38),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-006',
+    ticker: 'MSFT',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 40,
+    price: 379.45, // +2% profit - sold too early
+    total: 15178,
+    timestamp: daysAgo(36),
+    status: 'filled',
+  });
+
+  // Trade 7-8: TSLA - Massive 15% loss before selling
+  trades.push({
+    id: 'demo-007',
+    ticker: 'TSLA',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 25,
+    price: 265.00,
+    total: 6625,
+    timestamp: daysAgo(34),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-008',
+    ticker: 'TSLA',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 25,
+    price: 225.25, // -15% loss - held way too long
+    total: 5631.25,
+    timestamp: daysAgo(25),
+    status: 'filled',
+  });
+
+  // Trade 9-10: GOOGL - Quick 1.8% profit
+  trades.push({
+    id: 'demo-009',
+    ticker: 'GOOGL',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 60,
+    price: 141.50,
+    total: 8490,
+    timestamp: daysAgo(30),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-010',
+    ticker: 'GOOGL',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 60,
+    price: 144.05, // +1.8% profit - exited early
+    total: 8643,
+    timestamp: daysAgo(28),
+    status: 'filled',
+  });
+
+  // Trade 11-12: META - 10% loss before selling
+  trades.push({
+    id: 'demo-011',
+    ticker: 'META',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 20,
+    price: 505.00,
+    total: 10100,
+    timestamp: daysAgo(27),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-012',
+    ticker: 'META',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 20,
+    price: 454.50, // -10% loss - held too long
+    total: 9090,
+    timestamp: daysAgo(20),
+    status: 'filled',
+  });
+
+  // Trade 13-14: AMZN - Quick 2.5% profit
+  trades.push({
+    id: 'demo-013',
+    ticker: 'AMZN',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 45,
+    price: 178.00,
+    total: 8010,
+    timestamp: daysAgo(22),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-014',
+    ticker: 'AMZN',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 45,
+    price: 182.45, // +2.5% profit - sold early
+    total: 8210.25,
+    timestamp: daysAgo(20),
+    status: 'filled',
+  });
+
+  // Trade 15-16: SPY - 8% loss before selling
+  trades.push({
+    id: 'demo-015',
+    ticker: 'SPY',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 35,
+    price: 498.00,
+    total: 17430,
+    timestamp: daysAgo(18),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-016',
+    ticker: 'SPY',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 35,
+    price: 458.16, // -8% loss - held too long
+    total: 16035.60,
+    timestamp: daysAgo(12),
+    status: 'filled',
+  });
+
+  // Trade 17-18: AAPL again - Quick 1.2% profit
+  trades.push({
+    id: 'demo-017',
+    ticker: 'AAPL',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 55,
+    price: 185.00,
+    total: 10175,
+    timestamp: daysAgo(14),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-018',
+    ticker: 'AAPL',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 55,
+    price: 187.22, // +1.2% profit - exited very early
+    total: 10297.10,
+    timestamp: daysAgo(13),
+    status: 'filled',
+  });
+
+  // Trade 19-20: NVDA again - 11% loss
+  trades.push({
+    id: 'demo-019',
+    ticker: 'NVDA',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 22,
+    price: 520.00,
+    total: 11440,
+    timestamp: daysAgo(10),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-020',
+    ticker: 'NVDA',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 22,
+    price: 462.80, // -11% loss - held too long
+    total: 10181.60,
+    timestamp: daysAgo(5),
+    status: 'filled',
+  });
+
+  // Trade 21-22: MSFT - 2.1% quick profit
+  trades.push({
+    id: 'demo-021',
+    ticker: 'MSFT',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 30,
+    price: 385.00,
+    total: 11550,
+    timestamp: daysAgo(8),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-022',
+    ticker: 'MSFT',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 30,
+    price: 393.09, // +2.1% profit - sold early
+    total: 11792.70,
+    timestamp: daysAgo(7),
+    status: 'filled',
+  });
+
+  // Trade 23-24: GOOGL - 9% loss before selling
+  trades.push({
+    id: 'demo-023',
+    ticker: 'GOOGL',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 50,
+    price: 152.00,
+    total: 7600,
+    timestamp: daysAgo(6),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-024',
+    ticker: 'GOOGL',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 50,
+    price: 138.32, // -9% loss - held too long
+    total: 6916,
+    timestamp: daysAgo(2),
+    status: 'filled',
+  });
+
+  // Trade 25-26: AMZN - Quick 1.7% profit
+  trades.push({
+    id: 'demo-025',
+    ticker: 'AMZN',
+    type: 'buy',
+    orderType: 'market',
+    quantity: 40,
+    price: 185.50,
+    total: 7420,
+    timestamp: daysAgo(4),
+    status: 'filled',
+  });
+  trades.push({
+    id: 'demo-026',
+    ticker: 'AMZN',
+    type: 'sell',
+    orderType: 'market',
+    quantity: 40,
+    price: 188.65, // +1.7% profit - exited early
+    total: 7546,
+    timestamp: daysAgo(3),
+    status: 'filled',
+  });
+
+  // Sort by timestamp (oldest first, then reverse for newest first in UI)
+  return trades.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+};
+
+// Generate demo trades once
+const DEMO_TRADES = generateDemoTrades();
+
 export const useTradingStore = create<TradingState & TradingActions>()(
   persist(
     (set, get) => ({
-      // Initial state
+      // Initial state with demo trades for Loss Aversion demonstration
       balance: INITIAL_BALANCE,
-      trades: [],
+      trades: DEMO_TRADES,
       positions: [],
       pendingOrders: [],
       watchlist: DEFAULT_WATCHLIST,
@@ -501,7 +839,7 @@ export const useTradingStore = create<TradingState & TradingActions>()(
         const state = get();
         set({
           balance: INITIAL_BALANCE,
-          trades: [],
+          trades: DEMO_TRADES, // Restore demo trades for Loss Aversion demonstration
           positions: [],
           pendingOrders: [],
           watchlist: state.watchlist, // Preserve watchlist
@@ -514,7 +852,7 @@ export const useTradingStore = create<TradingState & TradingActions>()(
         const state = get();
         set({
           balance: newBalance,
-          trades: [],
+          trades: DEMO_TRADES, // Restore demo trades for Loss Aversion demonstration
           positions: [],
           pendingOrders: [],
           watchlist: state.watchlist, // Preserve watchlist
@@ -535,6 +873,18 @@ export const useTradingStore = create<TradingState & TradingActions>()(
     }),
     {
       name: 'cognitrade-trading-store',
+      version: 1, // Bump version to trigger migration
+      migrate: (persistedState: unknown, version: number) => {
+        const state = persistedState as TradingState;
+        // For version 0 (or no version), add demo trades if none exist
+        if (version === 0 || !state.trades || state.trades.length === 0) {
+          return {
+            ...state,
+            trades: DEMO_TRADES,
+          };
+        }
+        return state;
+      },
     }
   )
 );
