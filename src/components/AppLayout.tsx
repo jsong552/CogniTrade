@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { BarChart3, Activity, FileText, Brain, Settings, Search } from 'lucide-react';
+import { BarChart3, Activity, FileText, Brain, Settings, Search, BookOpen } from 'lucide-react';
 import { motion } from "framer-motion";
 
 const NAV_ITEMS = [
   { to: '/', icon: BarChart3, label: 'Dashboard' },
   { to: '/trade', icon: Activity, label: 'Trade' },
   { to: '/logs', icon: FileText, label: 'Logs' },
+  { to: '/summary', icon: BookOpen, label: 'Summary' },
   { to: '/analysis', icon: Brain, label: 'Analysis' },
   { to: '/search', icon: Search, label: 'Search' },
 ];

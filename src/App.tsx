@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import TradePage from "./pages/TradePage";
 import LogsPage from "./pages/LogsPage";
 import AnalysisPage from "./pages/AnalysisPage";
+import SummaryPage from "./pages/SummaryPage";
 import SettingsPage from "./pages/SettingsPage";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/trade" element={<TradePage />} />
           <Route path="/logs" element={<LogsPage />} />
+          <Route path="/summary" element={<SummaryPage />} />
           <Route path="/analysis" element={<AnalysisPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/settings" element={<SettingsPage />} />
