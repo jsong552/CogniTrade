@@ -1081,7 +1081,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Took profit as soon as it turned green. Didn’t want to sit through another pullback.",
+            "text": "Took profit as soon as it turned green. Didn't want to sit through another pullback.",
             "label": "Loss_Aversion"
         },
         {
@@ -1101,7 +1101,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Cut the trade early once it hesitated, didn’t want to give anything back.",
+            "text": "Cut the trade early once it hesitated, didn't want to give anything back.",
             "label": "Loss_Aversion"
         },
         {
@@ -1217,11 +1217,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "I kept taking trade after trade today even though nothing really looked perfect. Each setup was small, but I felt like if I didn’t do something I’d miss the chance to make a few pips here or there, and sitting on the sidelines was driving me crazy.",
+            "text": "I kept taking trade after trade today even though nothing really looked perfect. Each setup was small, but I felt like if I didn't do something I'd miss the chance to make a few pips here or there, and sitting on the sidelines was driving me crazy.",
             "label": "Overtrading"
         },
         {
-            "text": "I closed my position way too early even though the trend was still intact. I just didn’t want to see it go red again and lose the small gains I had already locked in.",
+            "text": "I closed my position way too early even though the trend was still intact. I just didn't want to see it go red again and lose the small gains I had already locked in.",
             "label": "Loss_Aversion"
         },
         {
@@ -1229,7 +1229,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "I entered late on the breakout because everyone on social was talking about it. Even though the candle had already run far, I felt like if I didn’t get in now I’d be missing out on the next leg.",
+            "text": "I entered late on the breakout because everyone on social was talking about it. Even though the candle had already run far, I felt like if I didn't get in now I'd be missing out on the next leg.",
             "label": "FOMO"
         },
         {
@@ -1237,23 +1237,23 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "I stayed in front of the screen for hours taking small trades on almost nothing. I knew the setups weren’t perfect, but I hated feeling like I wasn’t doing something productive with my day.",
+            "text": "I stayed in front of the screen for hours taking small trades on almost nothing. I knew the setups weren't perfect, but I hated feeling like I wasn't doing something productive with my day.",
             "label": "Overtrading"
         },
         {
-            "text": "I let a trade run for longer than I planned because I was hoping it would come back. Even though my plan said to cut it, I just couldn’t face realizing the loss yet.",
+            "text": "I let a trade run for longer than I planned because I was hoping it would come back. Even though my plan said to cut it, I just couldn't face realizing the loss yet.",
             "label": "Loss_Aversion"
         },
         {
-            "text": "Right after a small loss, I entered another trade on the same stock, bigger than the first. I told myself it made sense because I could fix the loss immediately, even though I knew I wasn’t thinking clearly.",
+            "text": "Right after a small loss, I entered another trade on the same stock, bigger than the first. I told myself it made sense because I could fix the loss immediately, even though I knew I wasn't thinking clearly.",
             "label": "Revenge_Trading"
         },
         {
-            "text": "I bought into a strong move that had already run up because everyone was talking about it and I didn’t want to feel left out. I know the price was high, but the fear of missing out overpowered the setup.",
+            "text": "I bought into a strong move that had already run up because everyone was talking about it and I didn't want to feel left out. I know the price was high, but the fear of missing out overpowered the setup.",
             "label": "FOMO"
         },
         {
-            "text": "I increased my risk on the next trade after a few losses, reasoning that statistically a win had to happen soon. I felt like if I didn’t act, the losing streak would continue and I’d never recover.",
+            "text": "I increased my risk on the next trade after a few losses, reasoning that statistically a win had to happen soon. I felt like if I didn't act, the losing streak would continue and I'd never recover.",
             "label": "Gamblers_Fallacy"
         },
         {
@@ -1261,15 +1261,15 @@
             "label": "Overtrading"
         },
         {
-            "text": "I sold a trade after just a minor gain, even though my original target was much higher. I kept worrying it could turn against me and didn’t want to give any of it back.",
+            "text": "I sold a trade after just a minor gain, even though my original target was much higher. I kept worrying it could turn against me and didn't want to give any of it back.",
             "label": "Loss_Aversion"
         },
         {
-            "text": "After a loss, I immediately placed another trade on the same ticker. I knew it wasn’t ideal, but I wanted to even things out quickly and it felt urgent.",
+            "text": "After a loss, I immediately placed another trade on the same ticker. I knew it wasn't ideal, but I wanted to even things out quickly and it felt urgent.",
             "label": "Revenge_Trading"
         },
         {
-            "text": "I entered a trade after seeing momentum pick up and the stock trending everywhere online. Even though the setup wasn’t clean, I felt like I had to get in before the move went too far.",
+            "text": "I entered a trade after seeing momentum pick up and the stock trending everywhere online. Even though the setup wasn't clean, I felt like I had to get in before the move went too far.",
             "label": "FOMO"
         },
         {
@@ -1281,11 +1281,11 @@
             "label": "Overtrading"
         },
         {
-            "text": "I exited a winning position too early because I didn’t want the stress of seeing it pull back. Even though my plan said to hold, the uncertainty made me sell.",
+            "text": "I exited a winning position too early because I didn't want the stress of seeing it pull back. Even though my plan said to hold, the uncertainty made me sell.",
             "label": "Loss_Aversion"
         },
         {
-            "text": "I re-entered the same market immediately after a stop-out with bigger size. I knew it was emotionally driven, but I wanted to fix the loss and couldn’t wait.",
+            "text": "I re-entered the same market immediately after a stop-out with bigger size. I knew it was emotionally driven, but I wanted to fix the loss and couldn't wait.",
             "label": "Revenge_Trading"
         },
         {
@@ -1293,7 +1293,7 @@
             "label": "FOMO"
         },
         {
-            "text": "I added more to a trade after several losing attempts. I told myself the odds had to flip and that I couldn’t keep losing forever.",
+            "text": "I added more to a trade after several losing attempts. I told myself the odds had to flip and that I couldn't keep losing forever.",
             "label": "Gamblers_Fallacy"
         },
         {
@@ -1301,7 +1301,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "I sold the trade after a small pop even though it was trending; I didn’t want to see the green turn back to red.",
+            "text": "I sold the trade after a small pop even though it was trending; I didn't want to see the green turn back to red.",
             "label": "Loss_Aversion"
         },
         {
@@ -1309,7 +1309,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought late because everyone online was bullish; I didn’t want to miss what looked like a big run.",
+            "text": "Bought late because everyone online was bullish; I didn't want to miss what looked like a big run.",
             "label": "FOMO"
         },
         {
@@ -1321,7 +1321,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Closed a winning trade too early; I just couldn’t handle watching it dip.",
+            "text": "Closed a winning trade too early; I just couldn't handle watching it dip.",
             "label": "Loss_Aversion"
         },
         {
@@ -1341,7 +1341,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "I exited a trade as soon as it ticked up; I was worried I’d give it back if I held.",
+            "text": "I exited a trade as soon as it ticked up; I was worried I'd give it back if I held.",
             "label": "Loss_Aversion"
         },
         {
@@ -1349,7 +1349,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Jumped in after noticing heavy momentum and lots of chatter; I didn’t want to miss the next leg up.",
+            "text": "Jumped in after noticing heavy momentum and lots of chatter; I didn't want to miss the next leg up.",
             "label": "FOMO"
         },
         {
@@ -1357,11 +1357,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Kept trading even when setups weren’t clean; sitting out felt like I’d be missing out on pips.",
+            "text": "Kept trading even when setups weren't clean; sitting out felt like I'd be missing out on pips.",
             "label": "Overtrading"
         },
         {
-            "text": "Took profit very early; I didn’t want to see a good trade turn bad.",
+            "text": "Took profit very early; I didn't want to see a good trade turn bad.",
             "label": "Loss_Aversion"
         },
         {
@@ -1369,7 +1369,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought after a long run; I knew it was extended but couldn’t stand being left behind.",
+            "text": "Bought after a long run; I knew it was extended but couldn't stand being left behind.",
             "label": "FOMO"
         },
         {
@@ -1377,11 +1377,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "I kept jumping between charts and trades all day, even when conditions weren’t good.",
+            "text": "I kept jumping between charts and trades all day, even when conditions weren't good.",
             "label": "Overtrading"
         },
         {
-            "text": "Closed a winner quickly just to lock in gains; I didn’t trust the market to stay kind.",
+            "text": "Closed a winner quickly just to lock in gains; I didn't trust the market to stay kind.",
             "label": "Loss_Aversion"
         },
         {
@@ -1401,7 +1401,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Took profit early on a good move; I just couldn’t stomach watching unrealized gains fluctuate.",
+            "text": "Took profit early on a good move; I just couldn't stomach watching unrealized gains fluctuate.",
             "label": "Loss_Aversion"
         },
         {
@@ -1417,7 +1417,7 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Scalped repeatedly throughout the session even though setups weren’t ideal; sitting idle felt wasted.",
+            "text": "Scalped repeatedly throughout the session even though setups weren't ideal; sitting idle felt wasted.",
             "label": "Overtrading"
         },
         {
@@ -1441,7 +1441,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Closed the position for a small gain rather than let it swing; I didn’t trust it to hold.",
+            "text": "Closed the position for a small gain rather than let it swing; I didn't trust it to hold.",
             "label": "Loss_Aversion"
         },
         {
@@ -1449,7 +1449,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought after momentum pushed higher and chatter increased; I didn’t want to miss the move.",
+            "text": "Bought after momentum pushed higher and chatter increased; I didn't want to miss the move.",
             "label": "FOMO"
         },
         {
@@ -1461,7 +1461,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Closed a winning trade too early; I didn’t want to risk giving anything back.",
+            "text": "Closed a winning trade too early; I didn't want to risk giving anything back.",
             "label": "Loss_Aversion"
         },
         {
@@ -1501,7 +1501,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Took profit early on a green move; I didn’t want to risk losing it back.",
+            "text": "Took profit early on a green move; I didn't want to risk losing it back.",
             "label": "Loss_Aversion"
         },
         {
@@ -1509,7 +1509,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Jumped in after a big move everyone was talking about; I didn’t want to be left out.",
+            "text": "Jumped in after a big move everyone was talking about; I didn't want to be left out.",
             "label": "FOMO"
         },
         {
@@ -1517,11 +1517,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Scalped repeatedly even though setups weren’t strong; being idle made me anxious.",
+            "text": "Scalped repeatedly even though setups weren't strong; being idle made me anxious.",
             "label": "Overtrading"
         },
         {
-            "text": "Closed a winner early to avoid stress; couldn’t trust it to stay up.",
+            "text": "Closed a winner early to avoid stress; couldn't trust it to stay up.",
             "label": "Loss_Aversion"
         },
         {
@@ -1541,7 +1541,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Sold early to lock in gains; didn’t want to risk a reversal.",
+            "text": "Sold early to lock in gains; didn't want to risk a reversal.",
             "label": "Loss_Aversion"
         },
         {
@@ -1549,7 +1549,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought late on a strong move; didn’t want to miss the trend despite risk.",
+            "text": "Bought late on a strong move; didn't want to miss the trend despite risk.",
             "label": "FOMO"
         },
         {
@@ -1561,7 +1561,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Exited a trade quickly to secure profit; couldn’t handle unrealized swings.",
+            "text": "Exited a trade quickly to secure profit; couldn't handle unrealized swings.",
             "label": "Loss_Aversion"
         },
         {
@@ -1601,7 +1601,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Sold early to lock in gains; didn’t want to risk giving back profits.",
+            "text": "Sold early to lock in gains; didn't want to risk giving back profits.",
             "label": "Loss_Aversion"
         },
         {
@@ -1617,11 +1617,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Repeated small trades all session even though setups weren’t ideal; doing nothing felt worse.",
+            "text": "Repeated small trades all session even though setups weren't ideal; doing nothing felt worse.",
             "label": "Overtrading"
         },
         {
-            "text": "Closed a profitable trade too soon; I didn’t trust the market to keep it going.",
+            "text": "Closed a profitable trade too soon; I didn't trust the market to keep it going.",
             "label": "Loss_Aversion"
         },
         {
@@ -1629,7 +1629,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought after seeing a clear momentum move and social chatter; late entry but didn’t want to miss out.",
+            "text": "Bought after seeing a clear momentum move and social chatter; late entry but didn't want to miss out.",
             "label": "FOMO"
         },
         {
@@ -1641,7 +1641,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Closed the position after a small gain; didn’t stick around to see how it developed.",
+            "text": "Closed the position after a small gain; didn't stick around to see how it developed.",
             "label": "Loss_Aversion"
         },
         {
@@ -1661,15 +1661,15 @@
             "label": "Overtrading"
         },
         {
-            "text": "Exited early when it turned profitable; didn’t want to risk giving anything back.",
+            "text": "Exited early when it turned profitable; didn't want to risk giving anything back.",
             "label": "Loss_Aversion"
         },
         {
-            "text": "Entered another trade right after a stop-out; didn’t think much, just went for it.",
+            "text": "Entered another trade right after a stop-out; didn't think much, just went for it.",
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought after seeing the price run; didn’t want to sit on the sidelines.",
+            "text": "Bought after seeing the price run; didn't want to sit on the sidelines.",
             "label": "FOMO"
         },
         {
@@ -1677,11 +1677,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Kept trading throughout the day, even when setups weren’t clear.",
+            "text": "Kept trading throughout the day, even when setups weren't clear.",
             "label": "Overtrading"
         },
         {
-            "text": "Took profit quickly; didn’t hold to see if it would move further.",
+            "text": "Took profit quickly; didn't hold to see if it would move further.",
             "label": "Loss_Aversion"
         },
         {
@@ -1697,7 +1697,7 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Took multiple trades in a row; didn’t wait for clear setups.",
+            "text": "Took multiple trades in a row; didn't wait for clear setups.",
             "label": "Overtrading"
         },
         {
@@ -1709,7 +1709,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought late after noticing momentum; seemed like the move wasn’t stopping yet.",
+            "text": "Bought late after noticing momentum; seemed like the move wasn't stopping yet.",
             "label": "FOMO"
         },
         {
@@ -1721,7 +1721,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Sold a position after minor gains; didn’t wait for the target to be reached.",
+            "text": "Sold a position after minor gains; didn't wait for the target to be reached.",
             "label": "Loss_Aversion"
         },
         {
@@ -1737,11 +1737,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Traded more than usual; setups weren’t strong but I kept going anyway.",
+            "text": "Traded more than usual; setups weren't strong but I kept going anyway.",
             "label": "Overtrading"
         },
         {
-            "text": "Took a small win and exited; didn’t stay in for the bigger move.",
+            "text": "Took a small win and exited; didn't stay in for the bigger move.",
             "label": "Loss_Aversion"
         },
         {
@@ -1757,11 +1757,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Kept trading weak setups; sitting idle didn’t feel right.",
+            "text": "Kept trading weak setups; sitting idle didn't feel right.",
             "label": "Overtrading"
         },
         {
-            "text": "Closed early to secure gains; didn’t want to risk a reversal.",
+            "text": "Closed early to secure gains; didn't want to risk a reversal.",
             "label": "Loss_Aversion"
         },
         {
@@ -1777,11 +1777,11 @@
             "label": "Gamblers_Fallacy"
         },
         {
-            "text": "Took trades throughout the session; setups weren’t clear but kept going.",
+            "text": "Took trades throughout the session; setups weren't clear but kept going.",
             "label": "Overtrading"
         },
         {
-            "text": "Sold a winner early; didn’t wait for the trade to develop fully.",
+            "text": "Sold a winner early; didn't wait for the trade to develop fully.",
             "label": "Loss_Aversion"
         },
         {
@@ -1801,7 +1801,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Exited a trade early for small profit; didn’t want to risk reversal.",
+            "text": "Exited a trade early for small profit; didn't want to risk reversal.",
             "label": "Loss_Aversion"
         },
         {
@@ -1821,7 +1821,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Sold a winning trade early; didn’t trust it to hold.",
+            "text": "Sold a winning trade early; didn't trust it to hold.",
             "label": "Loss_Aversion"
         },
         {
@@ -1829,7 +1829,7 @@
             "label": "Revenge_Trading"
         },
         {
-            "text": "Bought late in a trending move; entry wasn’t ideal but felt necessary.",
+            "text": "Bought late in a trending move; entry wasn't ideal but felt necessary.",
             "label": "FOMO"
         },
         {
@@ -1841,7 +1841,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Took small profits early; didn’t want to risk losing them.",
+            "text": "Took small profits early; didn't want to risk losing them.",
             "label": "Loss_Aversion"
         },
         {
@@ -1861,7 +1861,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Closed a profitable trade early; didn’t stay in for bigger gains.",
+            "text": "Closed a profitable trade early; didn't stay in for bigger gains.",
             "label": "Loss_Aversion"
         },
         {
@@ -1881,7 +1881,7 @@
             "label": "Overtrading"
         },
         {
-            "text": "Sold early to lock in profit; didn’t want to see it turn against me.",
+            "text": "Sold early to lock in profit; didn't want to see it turn against me.",
             "label": "Loss_Aversion"
         },
         {
@@ -1899,6 +1899,466 @@
         {
             "text": "This stock I've been buying has been going down so much, so I'm doubling back because surely it's gonna go back up.",
             "label": "Revenge_Trading"
+        },
+        {
+            "text": "I've been staring at charts for an hour and I'm bored. This range is tight so I'm just going to take a quick scalp even though there's no real signal.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Nothing is clean today but I feel like I should be doing something. I'll just take a small trade to stay sharp.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I keep switching tickers because I don't want to miss any movement. Every time I see a candle pop I jump in.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm down a little on the day and I keep taking random setups to 'work my way back' instead of waiting for A+ entries.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I told myself only two trades, but I keep finding micro-reasons to enter. I feel uncomfortable just watching.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "My watchlist is quiet so I'm trading whatever moves. It's basically entertainment at this point.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm taking tiny trades on the one-minute because I want action. I'm not even sure what my plan is anymore.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm clicking in and out because I hate being flat. Even if the R/R isn't great, at least I'm doing something.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I missed the morning move so now I'm forcing trades to 'make the day worth it.'",
+            "label": "Overtrading"
+        },
+        {
+            "text": "This is a low-volume midday chop but I keep trading it like it's open. I just can't sit still.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I took three trades on the same tiny pattern because I thought repetition would make it work eventually.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Every time price wiggles I treat it like a setup. I'm basically manufacturing trades.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I keep refreshing the chart and taking entries before my alerts even trigger. I'm impatient and overactive.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm trading because I'm at my desk anyway. It feels weird to not 'use the time' even without an edge.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm up small today so I'm just taking more trades to keep the momentum going, even though it's getting sloppy.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I'm up a little and I want to lock it in. I don't care if it hits the full target, I just want guaranteed green.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "It finally turned green and I hit sell immediately. I couldn't handle the thought of it going red again.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm still holding this loser because closing it would make it real. I'd rather wait and hope it comes back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I moved my stop lower because getting stopped would hurt more than being wrong slowly.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "Price pulled back a bit and I bailed even though nothing broke. I just didn't want to watch profit shrink.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I cut my winner at the first sign of hesitation. I'd rather take a small win than risk being disappointed.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm down but I can't sell here. I'll wait for breakeven because taking the loss feels like admitting failure.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I reduced my target mid-trade. I know it's worse expectancy, but I wanted the relief of 'banking' something.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm watching unrealized P/L swing and it stresses me out, so I keep exiting early the moment it's green.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I keep telling myself it'll bounce back to my entry so I don't have to take the loss.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I didn't take the stop because I thought, 'it's already down, what's another few cents?'",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I won't close the trade because it would ruin my win rate. I'd rather hold longer and see if it recovers.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I got scared of giving back gains, so I took profit way too early and now it's running without me.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I hesitated to exit the loser because I hate seeing realized red in the journal.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm trailing my stop super tight because I can't tolerate a pullback, even if it means I'll get shaken out.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "That stop-out made me mad. I'm re-entering right now with bigger size to get it back.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I don't even care about the setup anymore. I just need to make back what I lost on the last trade.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "The market disrespected me with that wick. I'm going back in immediately to prove I'm right.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm tilted. I just hit the hotkeys without thinking because I refuse to end the session down.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I lost on this ticker and now I'm obsessed with it. I'm trading it again until it pays me back.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I sized up after the loss because I want one trade to erase the damage.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I got stopped out and immediately flipped direction out of anger. No analysis, just impulse.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm not walking away after that. I'm going to take another shot right now, bigger, just to get even.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm trading fast and emotional. I know it's dumb, but I want a win immediately after that loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm ignoring my daily max loss because I'm convinced the next trade will 'fix it.'",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I re-entered the same setup instantly because I felt embarrassed by the stop-out.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm basically fighting the chart right now. I'm taking trades just to feel in control again.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I just doubled size because I'm angry. If it works, I'm back. If it doesn't, whatever.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I'm chasing a quick win after that loss. I'm not thinking about edge, only recovery.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "That loss made me slam another entry immediately. I didn't even check levels—just hit buy.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "This ticker is trending everywhere and I feel like I'll regret it if I'm not in.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Everyone in my group chat is already long. I don't see a perfect setup, but I'm entering anyway.",
+            "label": "FOMO"
+        },
+        {
+            "text": "It's ripping and I feel late. I'm jumping in now because I can't stand watching it go without me.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Twitter is full of screenshots on this move. I don't want to be the only one who missed it.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I'm buying even though it's extended because people keep saying 'this is just the start.'",
+            "label": "FOMO"
+        },
+        {
+            "text": "I missed the initial breakout but it keeps going. I'm entering because I don't want to miss the second leg.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Everyone's calling this 'the trade of the day' and I feel pressure to participate.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I don't know the fundamentals here, but the hype is massive. I'm in because it's moving.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I know chasing is bad but it feels worse to sit out while the whole market watches this thing run.",
+            "label": "FOMO"
+        },
+        {
+            "text": "It's already up a lot, but the comments keep saying squeeze. I'd hate myself if it doubles without me.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Everyone is posting profits and I'm flat. I'm buying just to not feel left behind.",
+            "label": "FOMO"
+        },
+        {
+            "text": "This is on every scanner and I'm scared I'll miss the move of the week if I don't enter now.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I hesitated earlier and now it's higher. I'm entering late because I feel like I already 'missed' enough.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The candle is huge and I'm late, but I'm still buying because it looks like it won't stop.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I'm taking this trade because everyone else seems convinced. I don't want to be the idiot on the sidelines.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I've had four losers, so the next one has to win. I'm going to size up because the streak can't continue.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm due for a winner. Probability has to even out, so I'm taking this next setup bigger.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "There's no way I lose again after this many red trades. I'm betting heavier on the next entry.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I've been wrong all morning, so statistically I should be right soon. I'm trusting the numbers.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "After five losing days, tomorrow basically has to be green. I'm planning to push size.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I keep thinking, 'it can't keep failing.' So I'm taking another trade because the odds should flip.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm on a losing streak, which means a win is coming soon. I'm going to press this one.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I've taken this setup three times and lost, but it can't lose forever. The next one should work.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm increasing size because I feel like I've 'paid' enough in losses to earn a win.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I know it's not how markets work, but it feels impossible to keep losing. Next trade should balance it.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "This system has failed me too many times in a row—so it's basically guaranteed to hit soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm thinking the streak has to end. I'm taking the next signal no matter what because it's 'due.'",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm down today, but that just means I'm more likely to win the next one. I'm leaning on that logic.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I lost six times—there's basically no way the seventh loses. I'm going bigger on this next trade.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I'm not unlucky forever. The probability has to swing back, so this is the trade that turns it around.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I missed the early move on this AI stock, but the whole sector is heating up. I'm going to rotate into another name in the same space and catch the next wave.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Everyone at work has been talking about this ticker all week. It feels like the kind of stock you just have to own while it's popular.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Bonus season just hit and there's a lot more money flowing into the market. I feel like that should push prices higher, so I'm getting more aggressive with trades.",
+            "label": "FOMO"
+        },
+        {
+            "text": "This stock already ran, but the news cycle around it is still strong. I think there's more upside just from attention alone.",
+            "label": "FOMO"
+        },
+        {
+            "text": "I missed the breakout on the main name, so I'm buying one of its smaller competitors. If the theme keeps running, it should follow.",
+            "label": "FOMO"
+        },
+        {
+            "text": "Retail traders are piling into anything related to this sector. I don't want to overthink it—I'll just go where the crowd is.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The whole market is talking about rate cuts again. Feels like risk-on conditions, so I'm taking more trades than usual.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Since I'm working from home today, I've got the charts open all day. I'll probably take more trades than usual just because I'm around.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Market's been really active lately and I don't want to miss any moves, so I'm watching multiple tickers and jumping in whenever something starts moving.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "There's a lot of economic news this week, so I feel like I should stay active in the market instead of sitting out.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "I've got some extra cash this month and the market's been volatile, so I'm trading more often to take advantage of it.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "The last trade didn't work, but the sector still looks strong. I'm going to try again on a similar setup.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I got stopped out of that move, but the story hasn't changed. I'm jumping back in because I think the market overreacted.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "That earnings reaction didn't make sense to me. I'm buying again because I feel like the market got it wrong.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I lost money on the first breakout attempt, but the narrative is still strong, so I'm taking another shot at it.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "The trade failed earlier, but I still believe in the idea. I'm entering again with a bit more size.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "I sold too early on the last run, so I'm not letting this one slip away. I'll just hold through the noise.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "This trade is slightly red, but with the positive news around the company, I'm willing to give it more room.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "The setup hasn't completely invalidated, so I'm holding even though it's below my planned stop.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I'm still green on the week, so I'd rather just close this trade now than risk giving those gains back.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I don't want this trade to turn into a loss, especially after the good start I had this morning, so I'm taking profit early.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I've had a few losing trades on this type of setup, so the next one should work if I stick with it.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "This strategy hasn't paid off all week, which probably means it's about to start working again.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I've been wrong on this sector three times, but the trend is still up, so odds are the next trade finally hits.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "After a red day like yesterday, today should naturally be better. I'm trading a bit bigger.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "The last few breakouts failed, but statistically one of them has to follow through soon.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Tech has been weak for days, so it feels like it's due for a bounce. I'm positioning for that.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "Crypto's been red all week, which usually means a green day is coming. I'm buying the dip.",
+            "label": "Gamblers_Fallacy"
+        },
+        {
+            "text": "I missed the morning move, so I'm trying to catch a similar setup in a related stock this afternoon.",
+            "label": "FOMO"
+        },
+        {
+            "text": "This one looks like yesterday's runner before it took off. I'm entering early so I don't miss the same move twice.",
+            "label": "FOMO"
+        },
+        {
+            "text": "The market's been rewarding these types of plays all week, so I'm just following the same pattern.",
+            "label": "FOMO"
+        },
+        {
+            "text": "People keep talking about how much money is in options right now, so I'm trading more aggressively to keep up.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "There's so much volatility lately that it feels wrong to sit out. I'm taking more trades just to stay involved.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "Since the market's been moving fast, I feel like I need to stay active all session instead of waiting for perfect setups.",
+            "label": "Overtrading"
+        },
+        {
+            "text": "This stock is down, but the broader theme is still hot. I'll hold and give it time to catch up.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "The trade is barely green, but with all the uncertainty in the market, I'd rather just lock it in now.",
+            "label": "Loss_Aversion"
+        },
+        {
+            "text": "I got stopped out earlier, so I'm taking another shot at a similar setup to make back the loss.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "That trade didn't work, but the narrative is still strong. I'm re-entering because the idea makes sense.",
+            "label": "Revenge_Trading"
+        },
+        {
+            "text": "Retail sentiment is extremely bullish right now, so I'm jumping into anything getting attention.",
+            "label": "FOMO"
+        },
+        {
+            "text": "There's a lot of hype around this earnings season, so I'm trading more names than usual.",
+            "label": "Overtrading"
         }
     ]
 }
