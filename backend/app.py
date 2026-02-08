@@ -2,6 +2,7 @@ import base64
 import io
 import json
 import os
+import queue
 import sys
 from threading import Thread
 
@@ -19,7 +20,7 @@ from journal_model_training_script.train_bias_detector import TradingBiasDetecto
 from models.overtrading_model.predict_overtrading import score_overtrading
 from models.revenge_trading_model.revenge_inference import score_revenge
 from models.loss_aversion_trading_model.loss_aversion_inference import score_loss_aversion
-from agent import create_analysis_session, agent_chat
+from agent import create_analysis_session_streaming, agent_chat
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -251,63 +252,120 @@ def agent_analyze():
     """Upload a CSV, run the three bias models, then generate an LLM expert
     report via Backboard AI.
 
+    Streams progress back as **Server-Sent Events** so the frontend can show
+    live status updates while ML models and the AI agent are working.
+
     Request: multipart/form-data with field ``file`` (CSV).
-    Response JSON::
-
-        {
-            "success": true,
-            "thread_id": "...",
-            "report": "... markdown ...",
-            "scores": {
-                "overtrading":   { "windows": [...], "avg_score": 0.72 },
-                "revenge":       { "windows": [...], "avg_score": 0.45 },
-                "loss_aversion": { "windows": [...], "avg_score": 0.31 }
-            }
-        }
+    SSE event types:
+        - ``progress``    -- step description (ML model or agent phase)
+        - ``agent_event`` -- tool call / rationale from the AI agent
+        - ``scores``      -- bias model scores are ready
+        - ``result``      -- final report + thread_id + scores
+        - ``error``       -- something went wrong
+        - ``done``        -- stream finished
     """
+    # ---- validate input (returns JSON on error) ----------------------------
+    if 'file' not in request.files:
+        return jsonify({'error': 'Missing CSV file (field: file)'}), 400
+
+    file = request.files['file']
+    if not file.filename:
+        return jsonify({'error': 'Empty filename'}), 400
+
     try:
-        # ---- validate input ------------------------------------------------
-        if 'file' not in request.files:
-            return jsonify({
-                'error': 'Missing CSV file (field: file)',
-            }), 400
-
-        file = request.files['file']
-        if not file.filename:
-            return jsonify({'error': 'Empty filename'}), 400
-
-        try:
-            raw = file.read().decode('utf-8')
-            df = pd.read_csv(io.StringIO(raw))
-        except Exception as e:
-            return jsonify({'error': f'Failed to parse CSV: {e}'}), 400
-
-        missing = _REQUIRED_COLS - set(df.columns)
-        if missing:
-            return jsonify({
-                'error': f'CSV is missing required columns: {sorted(missing)}',
-                'required': sorted(_REQUIRED_COLS),
-            }), 400
-
-        # ---- run the three scoring models ----------------------------------
-        scores = {
-            'overtrading': score_overtrading(df),
-            'revenge': score_revenge(df),
-            'loss_aversion': score_loss_aversion(df),
-        }
-
-        # ---- generate LLM expert report via Backboard ----------------------
-        session = create_analysis_session(df, scores)
-
-        return jsonify({
-            'success': True,
-            'thread_id': session['thread_id'],
-            'report': session['report'],
-            'scores': scores,
-        })
-
+        raw = file.read().decode('utf-8')
+        df = pd.read_csv(io.StringIO(raw))
     except Exception as e:
-        return jsonify({'error': f'Agent analysis failed: {str(e)}'}), 500
+        return jsonify({'error': f'Failed to parse CSV: {e}'}), 400
+
+    missing = _REQUIRED_COLS - set(df.columns)
+    if missing:
+        return jsonify({
+            'error': f'CSV is missing required columns: {sorted(missing)}',
+            'required': sorted(_REQUIRED_COLS),
+        }), 400
+
+    # ---- stream analysis progress via SSE ----------------------------------
+    event_queue: queue.Queue = queue.Queue()
+
+    def _progress_cb(event: dict):
+        event_queue.put(event)
+
+    def _run_analysis():
+        try:
+            # Phase 1: ML model scoring
+            event_queue.put({
+                'type': 'progress', 'step': 'overtrading_model',
+                'message': 'Running overtrading detection model...',
+            })
+            ot_result = score_overtrading(df)
+
+            event_queue.put({
+                'type': 'progress', 'step': 'revenge_model',
+                'message': 'Running revenge trading detection model...',
+            })
+            rv_result = score_revenge(df)
+
+            event_queue.put({
+                'type': 'progress', 'step': 'loss_aversion_model',
+                'message': 'Running loss aversion detection model...',
+            })
+            la_result = score_loss_aversion(df)
+
+            scores = {
+                'overtrading': ot_result,
+                'revenge': rv_result,
+                'loss_aversion': la_result,
+            }
+            event_queue.put({'type': 'scores', 'scores': scores})
+
+            # Phase 2: AI agent analysis
+            event_queue.put({
+                'type': 'progress', 'step': 'agent_start',
+                'message': 'Starting AI expert analysis...',
+            })
+            session = create_analysis_session_streaming(df, scores, _progress_cb)
+
+            event_queue.put({
+                'type': 'result',
+                'success': True,
+                'thread_id': session['thread_id'],
+                'report': session['report'],
+                'scores': scores,
+            })
+        except Exception as exc:
+            event_queue.put({
+                'type': 'error',
+                'message': f'Agent analysis failed: {exc}',
+            })
+        finally:
+            event_queue.put(None)  # sentinel
+
+    thread = Thread(target=_run_analysis, daemon=True)
+    thread.start()
+
+    def _generate():
+        while True:
+            try:
+                event = event_queue.get(timeout=300)  # 5 min for ML + agent with retries
+            except queue.Empty:
+                yield f"data: {json.dumps({'type': 'error', 'message': 'Analysis timed out'})}\n\n"
+                yield f"data: {json.dumps({'type': 'done'})}\n\n"
+                return
+            if event is None:
+                yield f"data: {json.dumps({'type': 'done'})}\n\n"
+                return
+            yield f"data: {json.dumps(event, default=str)}\n\n"
+
+    return Response(
+        _generate(),
+        mimetype='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'X-Accel-Buffering': 'no',
+            'Connection': 'keep-alive',
+        },
+    )
 
 
 @app.route('/agent/chat', methods=['POST'])

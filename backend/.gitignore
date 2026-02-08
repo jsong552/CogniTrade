@@ -27,3 +27,6 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+
+# Persisted session state (trade data + chat history)
+.session_store/

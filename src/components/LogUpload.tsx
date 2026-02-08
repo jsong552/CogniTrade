@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Upload, FileText, X, Loader2, BarChart3 } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Upload, FileText, X, Loader2, CheckCircle2, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,6 +24,15 @@ export interface AgentAnalysisResult {
   thread_id: string;
   report: string;
   scores: BiasScores;
+}
+
+interface ProgressEvent {
+  type: string;
+  message?: string;
+  step?: string;
+  action?: string;
+  rationale?: string;
+  observation?: string;
 }
 
 interface LogUploadProps {
@@ -140,8 +149,16 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [analyzingAccount, setAnalyzingAccount] = useState(false);
+  const [progressEvents, setProgressEvents] = useState<ProgressEvent[]>([]);
   const fileRef = useRef<HTMLInputElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const trades = useTradingStore((state) => state.trades);
+
+  useEffect(() => {
+    if (progressRef.current) {
+      progressRef.current.scrollTop = progressRef.current.scrollHeight;
+    }
+  }, [progressEvents]);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -155,6 +172,8 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
     if (!uploadedFile) return;
 
     setLoading(true);
+    setProgressEvents([]);
+
     try {
       const formData = new FormData();
       formData.append('file', uploadedFile);
@@ -164,15 +183,70 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
         body: formData,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error ?? 'Analysis failed');
+      // Validation errors come back as plain JSON
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('text/event-stream')) {
+        const data = await res.json();
+        if (!res.ok) {
+          toast.error(data.error ?? 'Analysis failed');
+          return;
+        }
+        // Fallback: non-streaming success
+        toast.success('Analysis complete!');
+        onAnalyze('uploaded', data as AgentAnalysisResult);
         return;
       }
 
-      toast.success('Analysis complete!');
-      onAnalyze('uploaded', data as AgentAnalysisResult);
+      // Stream SSE progress events
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let finalResult: AgentAnalysisResult | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+
+        for (const part of parts) {
+          for (const line of part.split('\n')) {
+            if (!line.startsWith('data: ')) continue;
+            try {
+              const event = JSON.parse(line.slice(6));
+              if (event.type === 'progress' || event.type === 'agent_event') {
+                setProgressEvents((prev) => [...prev, event]);
+              } else if (event.type === 'scores') {
+                setProgressEvents((prev) => [
+                  ...prev,
+                  { type: 'progress', step: 'scores_ready', message: 'Bias scores ready. Starting AI report…' },
+                ]);
+              } else if (event.type === 'result') {
+                finalResult = {
+                  thread_id: event.thread_id,
+                  report: event.report,
+                  scores: event.scores,
+                };
+              } else if (event.type === 'error') {
+                // Ignore error if we already have a successful result (avoids late timeout overwriting success)
+                if (!finalResult) {
+                  toast.error(event.message ?? 'Analysis failed');
+                  return;
+                }
+              }
+            } catch {
+              /* ignore parse errors on partial chunks */
+            }
+          }
+        }
+      }
+
+      if (finalResult) {
+        toast.success('Analysis complete!');
+        onAnalyze('uploaded', finalResult);
+      }
     } catch (err) {
       toast.error('Could not reach the backend. Is the server running?');
     } finally {
@@ -181,32 +255,27 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
   };
 
   const handleAnalyzeAccount = async () => {
-    // Check if we have enough trades to analyze
     const filledTrades = trades.filter(t => t.status === 'filled');
     if (filledTrades.length < 4) {
       toast.error('Need at least 4 filled trades to analyze. Place more trades first!');
       return;
     }
 
-    // Count round-trip trades (buy+sell pairs)
     const buyCount = filledTrades.filter(t => t.type === 'buy').length;
     const sellCount = filledTrades.filter(t => t.type === 'sell').length;
     const minPairs = Math.min(buyCount, sellCount);
-
     if (minPairs < 2) {
       toast.error('Need at least 2 complete round-trip trades (buy + sell pairs) to analyze.');
       return;
     }
 
     setAnalyzingAccount(true);
-    try {
-      // Convert trades to CSV format
-      const csvContent = convertTradesToCSV(trades);
+    setProgressEvents([]);
 
-      // Create a blob and form data
+    try {
+      const csvContent = convertTradesToCSV(trades);
       const blob = new Blob([csvContent], { type: 'text/csv' });
       const file = new File([blob], 'account_trades.csv', { type: 'text/csv' });
-
       const formData = new FormData();
       formData.append('file', file);
 
@@ -215,15 +284,62 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
         body: formData,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error ?? 'Analysis failed');
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('text/event-stream')) {
+        const data = await res.json();
+        if (!res.ok) {
+          toast.error(data.error ?? 'Analysis failed');
+          return;
+        }
+        toast.success('Account analysis complete!');
+        onAnalyze('account', data as AgentAnalysisResult);
         return;
       }
 
-      toast.success('Account analysis complete!');
-      onAnalyze('account', data as AgentAnalysisResult);
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let finalResult: AgentAnalysisResult | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+        for (const part of parts) {
+          for (const line of part.split('\n')) {
+            if (!line.startsWith('data: ')) continue;
+            try {
+              const event = JSON.parse(line.slice(6));
+              if (event.type === 'progress' || event.type === 'agent_event') {
+                setProgressEvents((prev) => [...prev, event]);
+              } else if (event.type === 'scores') {
+                setProgressEvents((prev) => [
+                  ...prev,
+                  { type: 'progress', step: 'scores_ready', message: 'Bias scores ready. Starting AI report…' },
+                ]);
+              } else if (event.type === 'result') {
+                finalResult = {
+                  thread_id: event.thread_id,
+                  report: event.report,
+                  scores: event.scores,
+                };
+              } else if (event.type === 'error' && !finalResult) {
+                toast.error(event.message ?? 'Analysis failed');
+                return;
+              }
+            } catch {
+              /* ignore */
+            }
+          }
+        }
+      }
+
+      if (finalResult) {
+        toast.success('Account analysis complete!');
+        onAnalyze('account', finalResult);
+      }
     } catch (err) {
       toast.error('Could not reach the backend. Is the server running?');
     } finally {
@@ -300,6 +416,47 @@ export function LogUpload({ onAnalyze }: LogUploadProps) {
           </Button>
         )}
       </div>
+
+      {/* Live progress log */}
+      <AnimatePresence>
+        {(loading || analyzingAccount) && progressEvents.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="glass-card p-4"
+          >
+            <h3 className="text-sm font-semibold mb-2">Analysis Progress</h3>
+            <div
+              ref={progressRef}
+              className="space-y-1.5 max-h-52 overflow-y-auto pr-1"
+            >
+              {progressEvents.map((event, i) => {
+                const isLatest = i === progressEvents.length - 1;
+                const label =
+                  event.type === 'agent_event' ? event.action : event.message;
+                return (
+                  <div key={i} className="flex items-start gap-2 text-xs">
+                    {isLatest ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin mt-0.5 flex-shrink-0 text-primary" />
+                    ) : (
+                      <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 flex-shrink-0 text-green-500" />
+                    )}
+                    <div className="min-w-0">
+                      <span className="text-foreground/80">{label}</span>
+                      {event.type === 'agent_event' && event.rationale && (
+                        <p className="text-muted-foreground mt-0.5 text-[11px] italic leading-tight">
+                          {event.rationale}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="glass-card p-5">
         <h3 className="text-sm font-semibold mb-2">Analyze Account Trades</h3>

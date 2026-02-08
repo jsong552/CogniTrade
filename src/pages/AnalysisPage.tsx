@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AppLayout } from '@/components/AppLayout';
 import { LogUpload, AgentAnalysisResult, BiasScores } from '@/components/LogUpload';
 import { BehaviorAnalysis } from '@/components/BehaviorAnalysis';
@@ -43,12 +43,36 @@ function toBehaviorCards(scores: BiasScores): BehaviorType[] {
   ];
 }
 
+const SESSION_STORAGE_KEY = 'cognitrade_analysis_session';
+
 const AnalysisPage = () => {
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [analysisData, setAnalysisData] = useState<BehaviorType[] | undefined>();
   const [scores, setScores] = useState<BiasScores | null>(null);
   const [threadId, setThreadId] = useState<string | null>(null);
   const [report, setReport] = useState<string | null>(null);
+
+  // Restore session from localStorage so chat works after refresh (backend loads session from disk)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(SESSION_STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as {
+        thread_id: string;
+        report: string;
+        scores: BiasScores;
+      };
+      if (saved.thread_id && saved.report && saved.scores) {
+        setThreadId(saved.thread_id);
+        setReport(saved.report);
+        setScores(saved.scores);
+        setAnalysisData(toBehaviorCards(saved.scores));
+        setShowAnalysis(true);
+      }
+    } catch {
+      // ignore invalid or old format
+    }
+  }, []);
 
   const handleAnalyze = (source: 'uploaded' | 'account', result?: AgentAnalysisResult) => {
     if (result) {
@@ -58,6 +82,18 @@ const AnalysisPage = () => {
       setThreadId(result.thread_id);
       setReport(result.report);
       setShowAnalysis(true);
+      try {
+        localStorage.setItem(
+          SESSION_STORAGE_KEY,
+          JSON.stringify({
+            thread_id: result.thread_id,
+            report: result.report,
+            scores: result.scores,
+          })
+        );
+      } catch {
+        // ignore quota / private mode
+      }
     } else {
       // Fallback for when no analysis result is available
       toast.info(`Analyzing ${source === 'uploaded' ? 'uploaded' : 'account'} trades... (using example data)`);
@@ -66,6 +102,11 @@ const AnalysisPage = () => {
       setThreadId(null);
       setReport(null);
       setShowAnalysis(true);
+      try {
+        localStorage.removeItem(SESSION_STORAGE_KEY);
+      } catch {
+        // ignore
+      }
     }
   };
 

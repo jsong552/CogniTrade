@@ -1,15 +1,32 @@
+# -----------------------------------------------------------------------------
+# CogniTrade Backend - Python dependencies
+# Install: pip install -r requirements.txt
+# -----------------------------------------------------------------------------
+
+# Web server & API
 Flask==3.0.0
 flask-cors==4.0.0
 flask-sock==0.7.0
 python-dotenv==1.0.1
 websockets==12.0
-torch
-transformers
-numpy
-scikit-learn
-tqdm
-pandas
-joblib
+
+# Data & ML (core)
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+tqdm>=4.65.0
+
+# Journal bias detector (RoBERTa)
+torch>=2.0.0
+transformers>=4.30.0
+
+# Overtrading model (XGBoost) - required to load saved .joblib at inference
+xgboost>=2.0.0
+
+# AI agent layer (Backboard + LangGraph + DuckDB)
 backboard-sdk
-duckdb
-xgboost==3.1.3
+langgraph>=0.2.0
+langchain-openai>=0.2.0
+langchain-core>=0.3.0
+duckdb>=1.0.0
