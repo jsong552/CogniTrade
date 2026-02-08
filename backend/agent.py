@@ -343,9 +343,12 @@ def _load_into_duckdb(
     df: pd.DataFrame,
     scores: dict | None = None,
 ) -> duckdb.DuckDBPyConnection:
-    """Create an in-memory DuckDB connection with a ``trades`` table and optional ML feature tables."""
+    """Create an in-memory DuckDB connection with a ``trades`` table and optional ML feature tables.
+    The ``timestamp`` column is kept as TIMESTAMP (not string) so interval arithmetic works
+    (e.g. timestamp + INTERVAL '15 minutes' for revenge-tax / post-loss windows).
+    """
     df = df.copy()
-    df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True).astype(str)
+    df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
     if "notional" not in df.columns:
         df["notional"] = df["quantity"] * df["entry_price"]
     conn = duckdb.connect(":memory:")
@@ -1022,12 +1025,25 @@ async def _create_analysis_session(
         _progress_callbacks.pop(tid, None)
 
 
-def agent_chat(thread_id: str, message: str) -> str:
-    """Send a follow-up chat message and return the agent's response."""
-    return asyncio.run(_agent_chat(thread_id, message))
+def agent_chat(
+    thread_id: str,
+    message: str,
+    progress_callback: Callable[[dict], None] | None = None,
+) -> str:
+    """Send a follow-up chat message and return the agent's response.
+
+    If progress_callback is provided, it will be invoked with progress dicts
+    (e.g. {"type": "agent_event", "action": "...", "rationale": "...", "observation": "..."})
+    as the agent runs, similar to create_analysis_session_streaming.
+    """
+    return asyncio.run(_agent_chat(thread_id, message, progress_callback))
 
 
-async def _agent_chat(thread_id: str, message: str) -> str:
+async def _agent_chat(
+    thread_id: str,
+    message: str,
+    progress_callback: Callable[[dict], None] | None = None,
+) -> str:
     thread_id = str(thread_id).strip() if thread_id else ""
     if not thread_id or thread_id not in _sessions:
         session = _load_session_from_disk(thread_id)
@@ -1038,12 +1054,20 @@ async def _agent_chat(thread_id: str, message: str) -> str:
     session = _sessions[thread_id]
     client = BackboardClient(api_key=_get_api_key())
 
-    response = await _send_and_resolve_langgraph(
-        client,
-        thread_id,
-        message,
-        session,
-        task_name="Follow-up chat",
-    )
-    _persist_session(thread_id, session, df=None)
-    return response
+    if progress_callback:
+        _progress_callbacks[thread_id] = progress_callback
+        token = _active_thread_id.set(thread_id)
+    try:
+        response = await _send_and_resolve_langgraph(
+            client,
+            thread_id,
+            message,
+            session,
+            task_name="Follow-up chat",
+        )
+        _persist_session(thread_id, session, df=None)
+        return response
+    finally:
+        if progress_callback:
+            _active_thread_id.reset(token)
+            _progress_callbacks.pop(thread_id, None)

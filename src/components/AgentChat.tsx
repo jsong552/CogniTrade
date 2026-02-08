@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, Bot, User } from 'lucide-react';
+import { Send, Loader2, Bot, User, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -12,6 +12,15 @@ interface Message {
   content: string;
 }
 
+type ProgressEvent = {
+  type: 'progress' | 'agent_event';
+  step?: string;
+  message?: string;
+  action?: string;
+  rationale?: string;
+  observation?: string;
+};
+
 interface AgentChatProps {
   threadId: string;
 }
@@ -20,14 +29,22 @@ export function AgentChat({ threadId }: AgentChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [progressEvents, setProgressEvents] = useState<ProgressEvent[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll to bottom when messages or progress change
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (progressRef.current) {
+      progressRef.current.scrollTop = progressRef.current.scrollHeight;
+    }
+  }, [progressEvents]);
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -36,6 +53,7 @@ export function AgentChat({ threadId }: AgentChatProps) {
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: text }]);
     setLoading(true);
+    setProgressEvents([]);
 
     try {
       const res = await fetch(`${API_BASE}/agent/chat`, {
@@ -69,6 +87,18 @@ export function AgentChat({ threadId }: AgentChatProps) {
               agentText = event.text;
             } else if (event.type === 'error') {
               agentText = `Error: ${event.message}`;
+            } else if (event.type === 'progress' || event.type === 'agent_event') {
+              setProgressEvents((prev) => [
+                ...prev,
+                {
+                  type: event.type,
+                  step: event.step,
+                  message: event.message,
+                  action: event.action,
+                  rationale: event.rationale,
+                  observation: event.observation,
+                },
+              ]);
             }
           } catch {
             // ignore malformed lines
@@ -92,6 +122,7 @@ export function AgentChat({ threadId }: AgentChatProps) {
       ]);
     } finally {
       setLoading(false);
+      setProgressEvents([]);
     }
   };
 
@@ -161,11 +192,42 @@ export function AgentChat({ threadId }: AgentChatProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center gap-2 text-muted-foreground"
+              className="space-y-2"
             >
-              <Bot className="h-4 w-4 text-primary" />
-              <Loader2 className="h-3 w-3 animate-spin" />
-              <span className="text-xs">Analyzing...</span>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Bot className="h-4 w-4 text-primary" />
+                <Loader2 className="h-3 w-3 animate-spin" />
+                <span className="text-xs">Analyzing...</span>
+              </div>
+              {progressEvents.length > 0 && (
+                <div
+                  ref={progressRef}
+                  className="space-y-1 max-h-32 overflow-y-auto rounded-md bg-muted/50 px-2 py-1.5 text-xs"
+                >
+                  {progressEvents.map((event, i) => {
+                    const isLatest = i === progressEvents.length - 1;
+                    const label =
+                      event.type === 'agent_event' ? event.action : event.message;
+                    return (
+                      <div key={i} className="flex items-start gap-2">
+                        {isLatest ? (
+                          <Loader2 className="h-3 w-3 animate-spin mt-0.5 flex-shrink-0 text-primary" />
+                        ) : (
+                          <CheckCircle2 className="h-3 w-3 mt-0.5 flex-shrink-0 text-green-500" />
+                        )}
+                        <div className="min-w-0">
+                          <span className="text-foreground/80">{label}</span>
+                          {event.type === 'agent_event' && event.rationale && (
+                            <p className="text-muted-foreground mt-0.5 text-[10px] italic leading-tight">
+                              {event.rationale}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           )}
         </div>

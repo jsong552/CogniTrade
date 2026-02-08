@@ -373,9 +373,11 @@ def agent_chat_endpoint():
     """Send a follow-up message to the agent on an existing thread.
 
     Responds with **Server-Sent Events** so the frontend can show a
-    streaming-style UX.  Events:
+    streaming-style UX with progress (same as analyze).  Events:
 
     - ``{"type": "start"}``          -- agent is working
+    - ``{"type": "progress", "step": "...", "message": "..."}``  -- optional status
+    - ``{"type": "agent_event", "action": "...", "rationale": "...", "observation": "..."}``  -- tool/rationale
     - ``{"type": "content", "text": "..."}``  -- agent response text
     - ``{"type": "done"}``           -- finished
     - ``{"type": "error", "message": "..."}`` -- something went wrong
@@ -389,13 +391,40 @@ def agent_chat_endpoint():
             'error': 'Both thread_id and message are required.',
         }), 400
 
+    event_queue = queue.Queue()
+
+    def _progress_cb(event: dict):
+        event_queue.put(event)
+
+    def _run_chat():
+        try:
+            event_queue.put({
+                'type': 'progress',
+                'step': 'agent_start',
+                'message': 'Agent is thinking...',
+            })
+            text = agent_chat(thread_id, message, _progress_cb)
+            event_queue.put({'type': 'content', 'text': text})
+        except Exception as exc:
+            event_queue.put({'type': 'error', 'message': str(exc)})
+        finally:
+            event_queue.put(None)  # sentinel
+
+    thread = Thread(target=_run_chat, daemon=True)
+    thread.start()
+
     def _generate():
         yield f"data: {json.dumps({'type': 'start'})}\n\n"
-        try:
-            text = agent_chat(thread_id, message)
-            yield f"data: {json.dumps({'type': 'content', 'text': text})}\n\n"
-        except Exception as exc:
-            yield f"data: {json.dumps({'type': 'error', 'message': str(exc)})}\n\n"
+        while True:
+            try:
+                event = event_queue.get(timeout=300)
+            except queue.Empty:
+                yield f"data: {json.dumps({'type': 'error', 'message': 'Chat timed out'})}\n\n"
+                yield f"data: {json.dumps({'type': 'done'})}\n\n"
+                return
+            if event is None:
+                break
+            yield f"data: {json.dumps(event, default=str)}\n\n"
         yield f"data: {json.dumps({'type': 'done'})}\n\n"
 
     return Response(
@@ -404,6 +433,7 @@ def agent_chat_endpoint():
         headers={
             'Cache-Control': 'no-cache',
             'X-Accel-Buffering': 'no',
+            'Connection': 'keep-alive',
         },
     )
 
