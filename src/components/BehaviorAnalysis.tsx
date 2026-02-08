@@ -26,7 +26,7 @@ export function BehaviorAnalysis({ analysisData }: BehaviorAnalysisProps) {
   const overallScore = Math.round(data.reduce((s, d) => s + d.score, 0) / data.length);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -44,9 +44,10 @@ export function BehaviorAnalysis({ analysisData }: BehaviorAnalysisProps) {
         </p>
       </motion.div>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {data.map((item, i) => {
           const Icon = ICONS[item.pattern] || Activity;
+          const percentage = Math.round(item.score);
           return (
             <motion.div
               key={item.pattern}
@@ -67,19 +68,23 @@ export function BehaviorAnalysis({ analysisData }: BehaviorAnalysisProps) {
                   <span className="text-xs text-muted-foreground font-mono">{item.occurrences}×</span>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-3">{item.description}</p>
-              <div className="bg-muted/50 rounded-lg p-2.5">
-                <span className="text-xs text-foreground/80">💡 {item.suggestion}</span>
+              <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                <span>Estimated likelihood</span>
+                <span className="text-foreground font-semibold">{percentage}%</span>
               </div>
-              <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: `${item.score}%` }}
+                  animate={{ width: `${percentage}%` }}
                   transition={{ delay: i * 0.08 + 0.3, duration: 0.5 }}
                   className={`h-full rounded-full ${
                     item.score >= 70 ? 'bg-loss' : item.score >= 40 ? 'bg-yellow-400' : 'bg-gain'
                   }`}
                 />
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">{item.description}</p>
+              <div className="bg-muted/50 rounded-lg p-2.5 mt-3">
+                <span className="text-xs text-foreground/80">💡 {item.suggestion}</span>
               </div>
             </motion.div>
           );
