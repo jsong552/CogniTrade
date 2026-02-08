@@ -325,12 +325,32 @@ export const useTradingStore = create<TradingState & TradingActions>()(
       },
 
       updatePrice: (symbol: string, price: number) => {
-        set((state) => ({
-          currentPrices: {
-            ...state.currentPrices,
-            [symbol.toUpperCase()]: price,
-          },
-        }));
+        const upperSymbol = symbol.toUpperCase();
+        set((state) => {
+          const positions = state.positions.map((position) => {
+            if (position.ticker !== upperSymbol) return position;
+
+            const totalValue = position.quantity * price;
+            const pnl = (price - position.avgPrice) * position.quantity;
+            const pnlPercent = position.avgPrice > 0 ? ((price - position.avgPrice) / position.avgPrice) * 100 : 0;
+
+            return {
+              ...position,
+              currentPrice: price,
+              totalValue,
+              pnl,
+              pnlPercent,
+            };
+          });
+
+          return {
+            currentPrices: {
+              ...state.currentPrices,
+              [upperSymbol]: price,
+            },
+            positions,
+          };
+        });
       },
 
       // Check pending orders and fill them if conditions are met
