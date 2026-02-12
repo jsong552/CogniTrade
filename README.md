@@ -1,4 +1,5 @@
 # CogniTrade
+A QHacks 2026 Project
 
 <div align="center">
   <img src="public/cognitrade_logo2.png" alt="CogniTrade Logo" width="120" />
